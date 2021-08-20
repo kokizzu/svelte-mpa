@@ -1,5 +1,7 @@
 # Svelte + TS + Vite
 
+cloned from [https://github.com/IndexXuan/vite-plugin-mpa/tree/main/examples/svelte-mpa-app] but with updated dependencies, since the old one are broken.
+
 This template should help get you started developing with Svelte and TypeScript in Vite.
 
 ## Recommended IDE Setup
