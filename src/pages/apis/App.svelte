@@ -15,9 +15,9 @@
 		
 	{#each apis as { route, prop }}
 		<a href="/api/{route}">{route}</a>
-		<code>
+		<span style="white-space: pre;">  
 			{JSON.stringify( prop, null, 3 )}
-		</code>
+		</span>
 	{/each}
 
 
@@ -35,10 +35,6 @@
         margin     : 0 auto;
     }
 
-    img {
-        height : 16rem;
-        width  : 16rem;
-    }
 
     h1 {
         color          : #FF3E00;
@@ -50,11 +46,6 @@
         max-width      : 14rem;
     }
 
-    p {
-        max-width   : 14rem;
-        margin      : 1rem auto;
-        line-height : 1.35;
-    }
 
     @media (min-width : 480px) {
         h1 {
