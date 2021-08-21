@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite'
 import path from 'path'
 import {svelte} from '@sveltejs/vite-plugin-svelte'
-import mpa from './src/vite-plugin-mpa/dist/index'
+import mpa from 'vite-plugin-mpa'
+import windicss from 'vite-plugin-windicss'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,7 +11,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  plugins: [svelte(), mpa()],
+  plugins: [svelte(), mpa(), windicss()],
   build: {
     rollupOptions: {
       input: {
