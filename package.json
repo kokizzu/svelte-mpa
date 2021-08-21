@@ -8,12 +8,17 @@
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.17",
+    "attractions": "^3.3.0",
+    "sass": "^1.38.0",
     "svelte": "^3.42.1",
     "svelte-preprocess": "^4.7.4",
     "typescript": "^4.3.5",
     "vite": "^2.5.0"
   },
   "dependencies": {
+    "gridjs": "^5.0.2",
+    "gridjs-svelte": "^1.2.0",
+    "svelte-calendar": "^2.0.4",
     "svelte-select": "^4.4.0",
     "vite-plugin-mpa": "^1.0.3",
     "vite-plugin-windicss": "^1.2.7",
