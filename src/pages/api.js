@@ -1,5 +1,5 @@
 // can be hit using with /api/[ApiName]
-export const LastUpdatedAt = 1629606807
+export const LastUpdatedAt = 1629611026
 export const APIs = {
 	ElementList: {
 		in: {
@@ -64,6 +64,43 @@ export const APIs = {
 		}, err: [
 		]
 	},
+	EventUpload: {
+		in: {
+			uploadId: '', // uint64
+			fileBinary: '', // string
+			sessionToken: '', //string | admin login token
+		}, out: {
+			eventUpload: {
+				id:  0, // uint64
+				createdAt:  0, // int64
+				createdBy:  '', // uint64
+				updatedAt:  0, // int64
+				updatedBy:  '', // uint64
+				deletedAt:  0, // int64
+				deletedBy:  '', // uint64
+				isDeleted:  false, // rqGame.EventUploads
+				restoredAt:  0, // int64
+				restoredBy:  '', // uint64
+				sizeByte:  0, // uint64
+				filePath:  '', // string
+				contentType:  '', // string
+				origName:  '', // string
+			},
+		}, err: [
+			[400, `invalid session token`],
+			[400, `missing fileBinary, enctype not multipart/form-data?`],
+			[400, `session missing from database, wrong env?`],
+			[400, `token expired`],
+			[403, `must be admin: `],
+			[403, `session expired`],
+			[404, `upload not found, wrong env?`],
+			[500, `cannot create upload directory`],
+			[500, `cannot detect file type: `],
+			[500, `cannot upsert event`],
+			[500, `failed moving uploaded file`],
+			[500, `failed to stat moved file`],
+		]
+	},
 	EventUpsert: {
 		in: {
 			eventId: '', // uint64
@@ -98,13 +135,13 @@ export const APIs = {
 				repeatDuration:  0, // int64
 			},
 		}, err: [
-			[500, `cannot upsert event`],
-			[404, `event not found, wrong env?`],
 			[400, `invalid session token`],
-			[403, `must be admin: `],
-			[403, `session expired`],
 			[400, `session missing from database, wrong env?`],
 			[400, `token expired`],
+			[403, `must be admin: `],
+			[403, `session expired`],
+			[404, `event not found, wrong env?`],
+			[500, `cannot upsert event`],
 		]
 	},
 	ExchangePackageCallback: {
@@ -144,8 +181,8 @@ export const APIs = {
 	},
 	MatchBet: {
 		in: {
-			betAmount: '', // int64
-			recentSecond: '', // int64
+			betAmount: 0, // int64
+			recentSecond: 0, // int64
 			sessionToken: '', //string | player login token
 		}, out: {
 			trxId: '', // uint64
@@ -154,9 +191,9 @@ export const APIs = {
 			[400, `insufficient fund to bet`],
 			[400, `invalid session token`],
 			[400, `player not found on database, wrong env?`],
-			[403, `session expired`],
 			[400, `session missing from database, wrong env?`],
 			[400, `token expired`],
+			[403, `session expired`],
 			[500, `failed deduct bet from player`],
 			[500, `failed to create match`],
 			[500, `failed to place a bet`],
@@ -172,21 +209,21 @@ export const APIs = {
 		}, out: {
 		}, err: [
 			[400, `invalid session token`],
-			[403, `cannot cancel match that already started`],
-			[403, `cannot cancel unowned match`],
-			[500, `failed refund bet to player`],
-			[500, `failed to place a bet`],
 			[400, `player not found on database, wrong env?`],
 			[400, `session missing from database, wrong env?`],
-			[403, `session expired`],
 			[400, `token expired`],
+			[403, `cannot cancel match that already started`],
+			[403, `cannot cancel unowned match`],
+			[403, `session expired`],
 			[404, `transaction not found, wrong env?`],
+			[500, `failed refund bet to player`],
+			[500, `failed to place a bet`],
 		]
 	},
 	MatchChooseHand: {
 		in: {
 			matchId: '', // uint64
-			battleNumber: '', // int
+			battleNumber: 0, // int
 			handSign: '', // string
 			sessionToken: '', //string | player login token
 		}, out: {
@@ -195,14 +232,14 @@ export const APIs = {
 			theirHand: '', // string
 			history: '', // string
 			winLose: '', // string
-			lastBattleAt: '', // int64
-			winner: '', // uint64
-			loser: '', // uint64
+			lastBattleAt: 0, // int64
+			winner: 0, // uint64
+			loser: 0, // uint64
 		}, err: [
 			[400, `invalid session token`],
-			[403, `session expired`],
 			[400, `session missing from database, wrong env?`],
 			[400, `token expired`],
+			[403, `session expired`],
 			[403, `you are not the member of this match`],
 			[500, `failed update match`],
 			[500, `match missing from database, wrong env?`],
@@ -257,12 +294,12 @@ export const APIs = {
 	},
 	PlayerList: {
 		in: {
-			limit: '', // uint32
-			offset: '', // uint32
+			limit: 0, // uint32
+			offset: 0, // uint32
 		}, out: {
-			limit: '', // uint32
-			offset: '', // uint32
-			total: '', // uint32
+			limit: 0, // uint32
+			offset: 0, // uint32
+			total: 0, // uint32
 			players: [{
 				id:  0, // uint64
 				email:  '', // string
@@ -304,15 +341,15 @@ export const APIs = {
 			walletId: '', // string
 			sessionToken: '', //string | login token
 		}, err: [
-			[500, `cannot create session`],
 			[401, `wrong email or password`],
 			[401, `wrong password or email`],
+			[500, `cannot create session`],
 		]
 	},
 	PlayerLogout: {
 		in: {
 		}, out: {
-			loggedOut: '', // bool
+			loggedOut: false, // bool
 			sessionToken: '', //string | login token
 		}, err: [
 		]
@@ -353,9 +390,9 @@ export const APIs = {
 			},
 		}, err: [
 			[400, `invalid session token`],
-			[403, `session expired`],
 			[400, `session missing from database, wrong env?`],
 			[400, `token expired`],
+			[403, `session expired`],
 			[404, `player does not exists on database: `],
 		]
 	},
@@ -367,9 +404,9 @@ export const APIs = {
 		}, out: {
 		}, err: [
 			[451, `failed to register this player: `],
+			[451, `user already exists: `],
 			[500, `cannot generate password: `],
 			[504, `failed to update walletId: `],
-			[451, `user already exists: `],
 		]
 	},
 	PlayerResetPassword: {
@@ -381,10 +418,10 @@ export const APIs = {
 	},
 	PlayerSelectSkin: {
 		in: {
-			skinId: '', // uint64
+			skinId: 0, // uint64
 			sessionToken: '', //string | player login token
 		}, out: {
-			ok: '', // bool
+			ok: false, // bool
 		}, err: [
 			[400, `invalid session token`],
 			[400, `player not found on database, wrong environment?`],
@@ -439,12 +476,12 @@ export const APIs = {
 	},
 	SkinList: {
 		in: {
-			limit: '', // uint32
-			offset: '', // uint32
+			limit: 0, // uint32
+			offset: 0, // uint32
 		}, out: {
-			total: '', // uint32
-			limit: '', // uint32
-			offset: '', // uint32
+			total: 0, // uint32
+			limit: 0, // uint32
+			offset: 0, // uint32
 			skins: [{
 				id:  0, // uint64
 				name:  '', // string
@@ -484,9 +521,9 @@ export const APIs = {
 			skinsIds: [], 
 		}, err: [
 			[400, `invalid session token`],
-			[403, `session expired`],
 			[400, `session missing from database, wrong env?`],
 			[400, `token expired`],
+			[403, `session expired`],
 		]
 	},
 	SkinPurchase: {
@@ -494,7 +531,7 @@ export const APIs = {
 			skinId: '', // uint64
 			sessionToken: '', //string | player login token
 		}, out: {
-			purchasedAt: '', // int64
+			purchasedAt: 0, // int64
 		}, err: [
 			[400, `invalid session token`],
 			[400, `session missing from database, wrong env?`],
@@ -525,11 +562,6 @@ export const APIs = {
 				origName:  '', // string
 			},
 		}, err: [
-			[500, `cannot create upload directory`],
-			[500, `cannot detect file type: `],
-			[500, `cannot upsert skin`],
-			[500, `failed moving uploaded file`],
-			[500, `failed to stat moved file`],
 			[400, `invalid session token`],
 			[400, `missing fileBinary, enctype not multipart/form-data?`],
 			[400, `session missing from database, wrong env?`],
@@ -537,6 +569,11 @@ export const APIs = {
 			[403, `must be admin: `],
 			[403, `session expired`],
 			[404, `upload not found, wrong env?`],
+			[500, `cannot create upload directory`],
+			[500, `cannot detect file type: `],
+			[500, `cannot upsert skin`],
+			[500, `failed moving uploaded file`],
+			[500, `failed to stat moved file`],
 		]
 	},
 	SkinUpsert: {
@@ -544,8 +581,8 @@ export const APIs = {
 			skinId: '', // uint64
 			name: '', // string
 			descrHtml: '', // string
-			price: '', // uint64
-			quota: '', // uint64
+			price: 0, // uint64
+			quota: 0, // uint64
 			stardustId: '', // string
 			videoUrl: '', // string
 			rockImgUrl: '', // string
@@ -588,13 +625,13 @@ export const APIs = {
 				element:  '', // string
 			},
 		}, err: [
-			[500, `cannot upsert skin`],
 			[400, `invalid session token`],
+			[400, `session missing from database, wrong env?`],
+			[400, `token expired`],
 			[403, `must be admin: `],
 			[403, `session expired`],
-			[400, `session missing from database, wrong env?`],
 			[404, `skin not found, wrong env?`],
-			[400, `token expired`],
+			[500, `cannot upsert skin`],
 		]
 	},
 }
