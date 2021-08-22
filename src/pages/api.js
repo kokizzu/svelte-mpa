@@ -1,9 +1,10 @@
 // can be hit using with /api/[ApiName]
+export const LastUpdatedAt = 1629561414
 export const APIs = {
 	ElementList: {
 		in: {
 		}, out: {
-			elements: '', 
+			elements: {key:'value'}, 
 		},
 	},
 	EventGet: {
@@ -70,6 +71,8 @@ export const APIs = {
 			repeatEvery: '', // int64
 			repeatDuration: '', // int64
 			bannerImgUrl: '', // string
+			doDelete: '', // bool
+			doRestore: '', // bool
 			sessionToken: '', //string | admin login token
 		}, out: {
 			event: {
@@ -138,18 +141,10 @@ export const APIs = {
 			matchId: '', // uint64
 		},
 	},
-	MatchBothHandChosen: {
-		in: {
-		}, out: {
-		},
-	},
 	MatchCancel: {
 		in: {
-		}, out: {
-		},
-	},
-	MatchChallengeAgain: {
-		in: {
+			trxId: '', // uint64
+			sessionToken: '', //string | player login token
 		}, out: {
 		},
 	},
@@ -177,6 +172,7 @@ export const APIs = {
 	},
 	MatchHistory: {
 		in: {
+			sessionToken: '', //string | player login token
 		}, out: {
 		},
 	},
@@ -188,7 +184,7 @@ export const APIs = {
 	PackList: {
 		in: {
 		}, out: {
-			packs: '', 
+			packs: {key:'value'}, 
 		},
 	},
 	PlayerChangeEmail: {
@@ -329,7 +325,7 @@ export const APIs = {
 	RarityList: {
 		in: {
 		}, out: {
-			rarities: '', 
+			rarities: {key:'value'}, 
 		},
 	},
 	SkinGet: {
@@ -421,6 +417,30 @@ export const APIs = {
 			purchasedAt: '', // int64
 		},
 	},
+	SkinUpload: {
+		in: {
+			uploadId: '', // uint64
+			fileBinary: '', // string
+			sessionToken: '', //string | admin login token
+		}, out: {
+			skinUpload: {
+				id: '' , // uint64
+				createdAt: '' , // int64
+				createdBy: '' , // uint64
+				updatedAt: '' , // int64
+				updatedBy: '' , // uint64
+				deletedAt: '' , // int64
+				deletedBy: '' , // uint64
+				isDeleted: '' , // bool
+				restoredAt: '' , // int64
+				restoredBy: '' , // uint64
+				sizeByte: '' , // uint64
+				filePath: '' , // string
+				contentType: '' , // string
+				origName: '' , // string
+			},
+		},
+	},
 	SkinUpsert: {
 		in: {
 			skinId: '', // uint64
@@ -436,6 +456,8 @@ export const APIs = {
 			series: '', // string
 			rarity: '', // string
 			element: '', // string
+			doDelete: '', // bool
+			doRestore: '', // bool
 			sessionToken: '', //string | admin login token
 		}, out: {
 			skin: {

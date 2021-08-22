@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {APIs} from "./api";
+	import {APIs,LastUpdatedAt} from "../api";
 	
 	let apis = []
 	
@@ -11,7 +11,7 @@
 </script>
 
 <main>
-	<h1>API List</h1>
+	<h1>API List {new Date(LastUpdatedAt*1000)}</h1>
 		
 	{#each apis as { route, prop }}
 		<a href="/api/{route}">{route}</a>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {APIs} from "./api";
+	import {APIs,LastUpdatedAt} from "./api";
 	
 	let apis = []
 	
@@ -11,13 +11,14 @@
 </script>
 
 <main>
-	<h1>API List</h1>
-		
+	<h1>API List {new Date(LastUpdatedAt*1000)}</h1>
+	
 	{#each apis as { route, prop }}
 		<a href="/api/{route}">{route}</a>
-		<code>
+		<br/>
+		<pre>
 			{JSON.stringify( prop, null, 3 )}
-		</code>
+		</pre>
 	{/each}
 
 
@@ -29,15 +30,16 @@
         Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
 
-    main {
-        text-align : center;
-        padding    : 1em;
-        margin     : 0 auto;
+    pre {
+        /*white-space : pre-line;*/
+        /*white-space : pre-wrap;*/
+	     border: 1px solid gray;
     }
 
-    img {
-        height : 16rem;
-        width  : 16rem;
+    main {
+        text-align : left;
+        padding    : 1em;
+        margin     : 0 auto;
     }
 
     h1 {
@@ -50,18 +52,9 @@
         max-width      : 14rem;
     }
 
-    p {
-        max-width   : 14rem;
-        margin      : 1rem auto;
-        line-height : 1.35;
-    }
 
     @media (min-width : 480px) {
         h1 {
-            max-width : none;
-        }
-
-        p {
             max-width : none;
         }
     }
