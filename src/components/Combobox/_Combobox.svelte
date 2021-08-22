@@ -22,6 +22,9 @@
     {items}
     bind:value
     on:select={handleSelect}
+    inputAttributes={{
+      class: "focus:(ring-0)",
+    }}
     {...$$restProps}
   />
 </label>
@@ -29,6 +32,11 @@
 <style lang="postcss">
   .combobox {
     --border: theme("colors.gray.500") 1px solid;
+    --borderHoverColor: theme("colors.gray.500");
+    --borderFocusColor: theme("colors.indigo.500");
+    --itemHoverBG: theme("colors.indigo.200");
+    --itemIsActiveBG: theme("colors.indigo.500");
+    --placeholderColor: theme("colors.gray.600");
 
     @apply block w-full;
   }

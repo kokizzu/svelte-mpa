@@ -3,8 +3,10 @@
   import Sidebar from "@/components/Sidebar.svelte";
   import Textbox from "@/components/Textbox";
   import Toggle from "@/components/Toggle";
-  import FileInput from "attractions/file-input/file-input.svelte";
   import DatePicker from "attractions/date-picker/date-picker.svelte";
+  import Button from "@/components/Button";
+  import Image from "@/components/Image";
+  import FileInput from "@/components/FileInput";
 
   let files = {
     bannerImageUrl: null,
@@ -29,8 +31,8 @@
   <Sidebar />
   <form class="min-h-full p-8 w-full overflow-y-auto" on:submit|preventDefault>
     <h1 class="text-lg font-semibold">Event Detail</h1>
-    <div class="flex mt-8 w-full space-x-10">
-      <div class="space-y-4 w-1/2">
+    <div class="mt-8 w-full grid grid-cols-1 lg:grid-cols-2 gap-10">
+      <div class="space-y-4">
         <Textbox
           type="text"
           bind:value={values.name}
@@ -48,19 +50,19 @@
         <div class="flex space-x-6">
           <div>
             <p class="font-semibold text-sm">From</p>
-            <DatePicker bind:value={values.startedAt} top />
+            <DatePicker bind:value={values.startedAt} top format="%Y-%m-%d" />
           </div>
           <div>
             <p class="font-semibold text-sm">To</p>
-            <DatePicker bind:value={values.endedAt} top />
+            <DatePicker bind:value={values.endedAt} top format="%Y-%m-%d" />
           </div>
         </div>
         <Toggle bind:value={values.status} label="Status" />
       </div>
-      <div class="space-y-4 w-1/2">
-        <div>
+      <div class="space-y-4">
+        <div class="w-36">
           <p class="text-sm font-semibold mb-1">Event Banner</p>
-          <div class="w-32 h-32 bg-gray-400 rounded" />
+          <Image class="w-full h-32" />
           <FileInput bind:value={files.bannerImageUrl} />
         </div>
         <Textbox
@@ -73,18 +75,8 @@
       </div>
     </div>
     <div class="flex mt-4 space-x-2">
-      <button
-        type="submit"
-        class="rounded bg-indigo-500 px-8 py-2 text-sm text-white font-semibold"
-      >
-        Save
-      </button>
-      <button
-        type="button"
-        class="rounded bg-white-500 border px-8 py-2 text-sm font-semibold"
-      >
-        Cancel
-      </button>
+      <Button type="submit">Save</Button>
+      <Button variant="secondary">Cancel</Button>
     </div>
   </form>
 </div>
