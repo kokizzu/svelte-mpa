@@ -1,5 +1,5 @@
 // can be hit using with /api/[ApiName]
-export const LastUpdatedAt = 1629561414
+export const LastUpdatedAt = 1629602539
 export const APIs = {
 	ElementList: {
 		in: {
@@ -12,52 +12,52 @@ export const APIs = {
 			eventId: '', // uint64
 		}, out: {
 			event: {
-				id: '' , // uint64
-				name: '' , // string
-				descrHtml: '' , // string
-				startedAt: '' , // int64
-				endedAt: '' , // int64
-				repeatEvery: '' , // int64
-				bannerImgUrl: '' , // string
-				createdAt: '' , // int64
-				createdBy: '' , // uint64
-				updatedAt: '' , // int64
-				updatedBy: '' , // uint64
-				deletedAt: '' , // int64
-				deletedBy: '' , // uint64
-				isDeleted: '' , // bool
-				restoredAt: '' , // int64
-				restoredBy: '' , // uint64
-				repeatDuration: '' , // int64
+				id:  0, // uint64
+				name:  '', // string
+				descrHtml:  '', // string
+				startedAt:  0, // int64
+				endedAt:  0, // int64
+				repeatEvery:  0, // int64
+				bannerImgUrl:  '', // string
+				createdAt:  0, // int64
+				createdBy:  '', // uint64
+				updatedAt:  0, // int64
+				updatedBy:  '', // uint64
+				deletedAt:  0, // int64
+				deletedBy:  '', // uint64
+				isDeleted:  false, // rqGame.Events
+				restoredAt:  0, // int64
+				restoredBy:  '', // uint64
+				repeatDuration:  0, // int64
 			},
 		},
 	},
 	EventList: {
 		in: {
-			limit: '', // uint32
-			offset: '', // uint32
+			limit: 0, // uint32
+			offset: 0, // uint32
 		}, out: {
-			total: '', // uint32
-			limit: '', // uint32
-			offset: '', // uint32
+			total: 0, // uint32
+			limit: 0, // uint32
+			offset: 0, // uint32
 			events: [{
-				id: '' , // uint64
-				name: '' , // string
-				descrHtml: '' , // string
-				startedAt: '' , // int64
-				endedAt: '' , // int64
-				repeatEvery: '' , // int64
-				bannerImgUrl: '' , // string
-				createdAt: '' , // int64
-				createdBy: '' , // uint64
-				updatedAt: '' , // int64
-				updatedBy: '' , // uint64
-				deletedAt: '' , // int64
-				deletedBy: '' , // uint64
-				isDeleted: '' , // bool
-				restoredAt: '' , // int64
-				restoredBy: '' , // uint64
-				repeatDuration: '' , // int64
+				id:  0, // uint64
+				name:  '', // string
+				descrHtml:  '', // string
+				startedAt:  0, // int64
+				endedAt:  0, // int64
+				repeatEvery:  0, // int64
+				bannerImgUrl:  '', // string
+				createdAt:  0, // int64
+				createdBy:  '', // uint64
+				updatedAt:  0, // int64
+				updatedBy:  '', // uint64
+				deletedAt:  0, // int64
+				deletedBy:  '', // uint64
+				isDeleted:  false, // rqGame.Events
+				restoredAt:  0, // int64
+				restoredBy:  '', // uint64
+				repeatDuration:  0, // int64
 			}],
 		},
 	},
@@ -66,33 +66,33 @@ export const APIs = {
 			eventId: '', // uint64
 			name: '', // string
 			descrHtml: '', // string
-			startedAt: '', // int64
-			endedAt: '', // int64
-			repeatEvery: '', // int64
-			repeatDuration: '', // int64
+			startedAt: 0, // int64
+			endedAt: 0, // int64
+			repeatEvery: 0, // int64
+			repeatDuration: 0, // int64
 			bannerImgUrl: '', // string
-			doDelete: '', // bool
-			doRestore: '', // bool
+			doDelete: false, // bool
+			doRestore: false, // bool
 			sessionToken: '', //string | admin login token
 		}, out: {
 			event: {
-				id: '' , // uint64
-				name: '' , // string
-				descrHtml: '' , // string
-				startedAt: '' , // int64
-				endedAt: '' , // int64
-				repeatEvery: '' , // int64
-				bannerImgUrl: '' , // string
-				createdAt: '' , // int64
-				createdBy: '' , // uint64
-				updatedAt: '' , // int64
-				updatedBy: '' , // uint64
-				deletedAt: '' , // int64
-				deletedBy: '' , // uint64
-				isDeleted: '' , // bool
-				restoredAt: '' , // int64
-				restoredBy: '' , // uint64
-				repeatDuration: '' , // int64
+				id:  0, // uint64
+				name:  '', // string
+				descrHtml:  '', // string
+				startedAt:  0, // int64
+				endedAt:  0, // int64
+				repeatEvery:  0, // int64
+				bannerImgUrl:  '', // string
+				createdAt:  0, // int64
+				createdBy:  '', // uint64
+				updatedAt:  0, // int64
+				updatedBy:  '', // uint64
+				deletedAt:  0, // int64
+				deletedBy:  '', // uint64
+				isDeleted:  false, // rqGame.Events
+				restoredAt:  0, // int64
+				restoredBy:  '', // uint64
+				repeatDuration:  0, // int64
 			},
 		},
 	},
@@ -216,34 +216,34 @@ export const APIs = {
 			offset: '', // uint32
 			total: '', // uint32
 			players: [{
-				id: '' , // uint64
-				email: '' , // string
-				password: '' , // string
-				createdAt: '' , // int64
-				createdBy: '' , // uint64
-				updatedAt: '' , // int64
-				updatedBy: '' , // uint64
-				deletedAt: '' , // int64
-				deletedBy: '' , // uint64
-				isDeleted: '' , // bool
-				restoredAt: '' , // int64
-				restoredBy: '' , // uint64
-				passwordSetAt: '' , // int64
-				secretCode: '' , // string
-				secretCodeAt: '' , // int64
-				verificationSentAt: '' , // int64
-				verifiedAt: '' , // int64
-				lastLoginAt: '' , // int64
-				walletId: '' , // string
-				fundTotal: '' , // int64
-				fundCheckedAt: '' , // int64
-				skinCurrent: '' , // uint64
-				energyTotal: '' , // int64
-				energyUsed: '' , // int64
-				energyRechargeAt: '' , // int64
-				experience: '' , // int64
-				battlePoint: '' , // int64
-				fullName: '' , // string
+				id:  0, // uint64
+				email:  '', // string
+				password:  '', // string
+				createdAt:  0, // int64
+				createdBy:  '', // uint64
+				updatedAt:  0, // int64
+				updatedBy:  '', // uint64
+				deletedAt:  0, // int64
+				deletedBy:  '', // uint64
+				isDeleted:  false, // rqAuth.Players
+				restoredAt:  0, // int64
+				restoredBy:  '', // uint64
+				passwordSetAt:  0, // int64
+				secretCode:  '', // string
+				secretCodeAt:  0, // int64
+				verificationSentAt:  0, // int64
+				verifiedAt:  0, // int64
+				lastLoginAt:  0, // int64
+				walletId:  '', // string
+				fundTotal:  0, // int64
+				fundCheckedAt:  0, // int64
+				skinCurrent:  0, // uint64
+				energyTotal:  0, // int64
+				energyUsed:  0, // int64
+				energyRechargeAt:  0, // int64
+				experience:  0, // int64
+				battlePoint:  0, // int64
+				fullName:  '', // string
 			}],
 		},
 	},
@@ -268,34 +268,34 @@ export const APIs = {
 			sessionToken: '', //string | player login token
 		}, out: {
 			player: {
-				id: '' , // uint64
-				email: '' , // string
-				password: '' , // string
-				createdAt: '' , // int64
-				createdBy: '' , // uint64
-				updatedAt: '' , // int64
-				updatedBy: '' , // uint64
-				deletedAt: '' , // int64
-				deletedBy: '' , // uint64
-				isDeleted: '' , // bool
-				restoredAt: '' , // int64
-				restoredBy: '' , // uint64
-				passwordSetAt: '' , // int64
-				secretCode: '' , // string
-				secretCodeAt: '' , // int64
-				verificationSentAt: '' , // int64
-				verifiedAt: '' , // int64
-				lastLoginAt: '' , // int64
-				walletId: '' , // string
-				fundTotal: '' , // int64
-				fundCheckedAt: '' , // int64
-				skinCurrent: '' , // uint64
-				energyTotal: '' , // int64
-				energyUsed: '' , // int64
-				energyRechargeAt: '' , // int64
-				experience: '' , // int64
-				battlePoint: '' , // int64
-				fullName: '' , // string
+				id:  0, // uint64
+				email:  '', // string
+				password:  '', // string
+				createdAt:  0, // int64
+				createdBy:  '', // uint64
+				updatedAt:  0, // int64
+				updatedBy:  '', // uint64
+				deletedAt:  0, // int64
+				deletedBy:  '', // uint64
+				isDeleted:  false, // rqAuth.Players
+				restoredAt:  0, // int64
+				restoredBy:  '', // uint64
+				passwordSetAt:  0, // int64
+				secretCode:  '', // string
+				secretCodeAt:  0, // int64
+				verificationSentAt:  0, // int64
+				verifiedAt:  0, // int64
+				lastLoginAt:  0, // int64
+				walletId:  '', // string
+				fundTotal:  0, // int64
+				fundCheckedAt:  0, // int64
+				skinCurrent:  0, // uint64
+				energyTotal:  0, // int64
+				energyUsed:  0, // int64
+				energyRechargeAt:  0, // int64
+				experience:  0, // int64
+				battlePoint:  0, // int64
+				fullName:  '', // string
 			},
 		},
 	},
@@ -333,33 +333,33 @@ export const APIs = {
 			skinId: '', // uint64
 		}, out: {
 			skin: {
-				id: '' , // uint64
-				name: '' , // string
-				createdAt: '' , // int64
-				createdBy: '' , // uint64
-				updatedAt: '' , // int64
-				updatedBy: '' , // uint64
-				deletedAt: '' , // int64
-				deletedBy: '' , // uint64
-				isDeleted: '' , // bool
-				restoredAt: '' , // int64
-				restoredBy: '' , // uint64
-				category: '' , // uint64
-				templateAt: '' , // int64
-				syncAt: '' , // int64
-				offerAt: '' , // int64
-				quota: '' , // uint64
-				price: '' , // uint64
-				stock: '' , // uint64
-				stardustId: '' , // string
-				descrHtml: '' , // string
-				videoUrl: '' , // string
-				rockImgUrl: '' , // string
-				paperImgUrl: '' , // string
-				scissorImgUrl: '' , // string
-				series: '' , // string
-				rarity: '' , // string
-				element: '' , // string
+				id:  0, // uint64
+				name:  '', // string
+				createdAt:  0, // int64
+				createdBy:  '', // uint64
+				updatedAt:  0, // int64
+				updatedBy:  '', // uint64
+				deletedAt:  0, // int64
+				deletedBy:  '', // uint64
+				isDeleted:  false, // rqItem.Skins
+				restoredAt:  0, // int64
+				restoredBy:  '', // uint64
+				category:  0, // uint64
+				templateAt:  0, // int64
+				syncAt:  0, // int64
+				offerAt:  0, // int64
+				quota:  0, // uint64
+				price:  0, // uint64
+				stock:  0, // uint64
+				stardustId:  '', // string
+				descrHtml:  '', // string
+				videoUrl:  '', // string
+				rockImgUrl:  '', // string
+				paperImgUrl:  '', // string
+				scissorImgUrl:  '', // string
+				series:  '', // string
+				rarity:  '', // string
+				element:  '', // string
 			},
 		},
 	},
@@ -372,33 +372,33 @@ export const APIs = {
 			limit: '', // uint32
 			offset: '', // uint32
 			skins: [{
-				id: '' , // uint64
-				name: '' , // string
-				createdAt: '' , // int64
-				createdBy: '' , // uint64
-				updatedAt: '' , // int64
-				updatedBy: '' , // uint64
-				deletedAt: '' , // int64
-				deletedBy: '' , // uint64
-				isDeleted: '' , // bool
-				restoredAt: '' , // int64
-				restoredBy: '' , // uint64
-				category: '' , // uint64
-				templateAt: '' , // int64
-				syncAt: '' , // int64
-				offerAt: '' , // int64
-				quota: '' , // uint64
-				price: '' , // uint64
-				stock: '' , // uint64
-				stardustId: '' , // string
-				descrHtml: '' , // string
-				videoUrl: '' , // string
-				rockImgUrl: '' , // string
-				paperImgUrl: '' , // string
-				scissorImgUrl: '' , // string
-				series: '' , // string
-				rarity: '' , // string
-				element: '' , // string
+				id:  0, // uint64
+				name:  '', // string
+				createdAt:  0, // int64
+				createdBy:  '', // uint64
+				updatedAt:  0, // int64
+				updatedBy:  '', // uint64
+				deletedAt:  0, // int64
+				deletedBy:  '', // uint64
+				isDeleted:  false, // rqItem.Skins
+				restoredAt:  0, // int64
+				restoredBy:  '', // uint64
+				category:  0, // uint64
+				templateAt:  0, // int64
+				syncAt:  0, // int64
+				offerAt:  0, // int64
+				quota:  0, // uint64
+				price:  0, // uint64
+				stock:  0, // uint64
+				stardustId:  '', // string
+				descrHtml:  '', // string
+				videoUrl:  '', // string
+				rockImgUrl:  '', // string
+				paperImgUrl:  '', // string
+				scissorImgUrl:  '', // string
+				series:  '', // string
+				rarity:  '', // string
+				element:  '', // string
 			}],
 		},
 	},
@@ -424,20 +424,20 @@ export const APIs = {
 			sessionToken: '', //string | admin login token
 		}, out: {
 			skinUpload: {
-				id: '' , // uint64
-				createdAt: '' , // int64
-				createdBy: '' , // uint64
-				updatedAt: '' , // int64
-				updatedBy: '' , // uint64
-				deletedAt: '' , // int64
-				deletedBy: '' , // uint64
-				isDeleted: '' , // bool
-				restoredAt: '' , // int64
-				restoredBy: '' , // uint64
-				sizeByte: '' , // uint64
-				filePath: '' , // string
-				contentType: '' , // string
-				origName: '' , // string
+				id:  0, // uint64
+				createdAt:  0, // int64
+				createdBy:  '', // uint64
+				updatedAt:  0, // int64
+				updatedBy:  '', // uint64
+				deletedAt:  0, // int64
+				deletedBy:  '', // uint64
+				isDeleted:  false, // rqItem.SkinUploads
+				restoredAt:  0, // int64
+				restoredBy:  '', // uint64
+				sizeByte:  0, // uint64
+				filePath:  '', // string
+				contentType:  '', // string
+				origName:  '', // string
 			},
 		},
 	},
@@ -456,38 +456,38 @@ export const APIs = {
 			series: '', // string
 			rarity: '', // string
 			element: '', // string
-			doDelete: '', // bool
-			doRestore: '', // bool
+			doDelete: false, // bool
+			doRestore: false, // bool
 			sessionToken: '', //string | admin login token
 		}, out: {
 			skin: {
-				id: '' , // uint64
-				name: '' , // string
-				createdAt: '' , // int64
-				createdBy: '' , // uint64
-				updatedAt: '' , // int64
-				updatedBy: '' , // uint64
-				deletedAt: '' , // int64
-				deletedBy: '' , // uint64
-				isDeleted: '' , // bool
-				restoredAt: '' , // int64
-				restoredBy: '' , // uint64
-				category: '' , // uint64
-				templateAt: '' , // int64
-				syncAt: '' , // int64
-				offerAt: '' , // int64
-				quota: '' , // uint64
-				price: '' , // uint64
-				stock: '' , // uint64
-				stardustId: '' , // string
-				descrHtml: '' , // string
-				videoUrl: '' , // string
-				rockImgUrl: '' , // string
-				paperImgUrl: '' , // string
-				scissorImgUrl: '' , // string
-				series: '' , // string
-				rarity: '' , // string
-				element: '' , // string
+				id:  0, // uint64
+				name:  '', // string
+				createdAt:  0, // int64
+				createdBy:  '', // uint64
+				updatedAt:  0, // int64
+				updatedBy:  '', // uint64
+				deletedAt:  0, // int64
+				deletedBy:  '', // uint64
+				isDeleted:  false, // rqItem.Skins
+				restoredAt:  0, // int64
+				restoredBy:  '', // uint64
+				category:  0, // uint64
+				templateAt:  0, // int64
+				syncAt:  0, // int64
+				offerAt:  0, // int64
+				quota:  0, // uint64
+				price:  0, // uint64
+				stock:  0, // uint64
+				stardustId:  '', // string
+				descrHtml:  '', // string
+				videoUrl:  '', // string
+				rockImgUrl:  '', // string
+				paperImgUrl:  '', // string
+				scissorImgUrl:  '', // string
+				series:  '', // string
+				rarity:  '', // string
+				element:  '', // string
 			},
 		},
 	},
