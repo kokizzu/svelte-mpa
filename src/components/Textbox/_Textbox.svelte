@@ -1,8 +1,27 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+
   export let placeholder = "";
   export let value: any = "";
   export let label = "";
   export let textarea = false;
+  export let type = "text";
+
+  let el;
+
+  const handleChange = (e: any) => {
+    if (type == "number") {
+      value = +e.target.value;
+    } else {
+      value = e.target.value;
+    }
+  };
+
+  onMount(() => {
+    if (el) {
+      el.type = type;
+    }
+  });
 </script>
 
 <!-- svelte-ignore a11y-label-has-associated-control -->
@@ -21,10 +40,11 @@
     />
   {:else}
     <input
+      bind:this={el}
       {placeholder}
       bind:value
-      on:change
-      on:input
+      on:change={handleChange}
+      on:input={handleChange}
       {...$$restProps}
       class="textbox-input"
     />

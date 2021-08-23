@@ -2,12 +2,8 @@
   import Select from "svelte-select";
 
   export let options: any;
-  export let value = "";
+  export let value: any = "";
   export let label = "";
-
-  function handleSelect(event: any) {
-    value = event.detail.value;
-  }
 
   $: items = Object.entries(options).map((v) => ({ value: v[0], label: v[1] }));
 </script>
@@ -21,7 +17,6 @@
     on:select
     {items}
     bind:value
-    on:select={handleSelect}
     inputAttributes={{
       class: "focus:(ring-0)",
     }}
