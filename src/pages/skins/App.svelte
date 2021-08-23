@@ -8,7 +8,7 @@
   import Modal from "attractions/modal/modal.svelte";
   import { h } from "gridjs";
   import Grid from "gridjs-svelte";
-  import SkinDialog from "./Dialog/SkinDialog.svelte";
+  import SkinDialog from "./SkinDialog.svelte";
 
   let showDialog = false;
   let selectedId = null;
@@ -41,7 +41,6 @@
       }
       return true;
     });
-    console.log(skins);
 
     return filtered.map((skin) => {
       return [
@@ -73,10 +72,20 @@
             return [
               h(
                 "button",
-                { onClick: () => editSkin(JSON.stringify(skinId)) },
+                {
+                  onClick: () => editSkin(skinId),
+                  className: "text-indigo-500",
+                },
                 "edit"
               ),
-              h("button", { onClick: () => deleteSkin(skinId) }, "delete"),
+              h(
+                "button",
+                {
+                  onClick: () => deleteSkin(skinId),
+                  className: "text-red-500",
+                },
+                "delete"
+              ),
             ];
           },
         },
@@ -105,7 +114,6 @@
       server={{
         url: `${endpoint}/SkinList`,
         then: (data) => transformData(data.skins),
-
         total: (data) => data.total,
       }}
     />

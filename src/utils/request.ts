@@ -16,7 +16,7 @@ async function fetchApi(
   try {
     const opts: Record<string, any> = { method };
 
-    if (method === "POST") {
+    if (method === "POST" && !(data instanceof FormData)) {
       opts.headers = {
         "Content-Type": "application/json",
       };

@@ -1,14 +1,23 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
+
   export let value = null;
 
-  let files: FileList;
+  const dispatch = createEventDispatcher();
 
-  $: value = files && files[0];
+  const handleChange = (e: any) => {
+    const files = e.target.files;
+    const file = files && files[0];
+    if (file) {
+      value = file;
+      dispatch("change", { file });
+    }
+  };
 </script>
 
 <div class="relative w-full">
   <label class="file-input">
-    <input type="file" class="hidden" bind:files />
+    <input type="file" class="hidden" on:change={handleChange} />
     Upload
   </label>
 </div>
