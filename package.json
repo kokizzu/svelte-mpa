@@ -20,7 +20,9 @@
     "gridjs-svelte": "^1.2.0",
     "ky": "^0.28.5",
     "svelte-calendar": "^2.0.4",
+    "svelte-notifications": "^0.9.91",
     "svelte-select": "^4.4.0",
+    "tinydate": "^1.3.0",
     "vite-plugin-mpa": "^1.0.3",
     "vite-plugin-windicss": "^1.2.7",
     "windicss": "^3.1.7"

@@ -1,19 +1,25 @@
 <script lang="ts">
-  import { skinUpsert } from "@/api/skin";
+  import { skinGet, skinUpsert } from "@/api/skin";
   import Button from "@/components/Button";
   import Login from "@/components/Login.svelte";
   import Sidebar from "@/components/Sidebar.svelte";
   import { token } from "@/stores/user";
   import { endpoint } from "@/utils/request";
+  import { btn, del, raw } from "@/utils/vdom";
   import Modal from "attractions/modal/modal.svelte";
-  import { h } from "gridjs";
   import Grid from "gridjs-svelte";
+  import { onMount } from "svelte";
   import SkinDialog from "./SkinDialog.svelte";
+  import { elements, loadData, rarities, series } from "./store";
 
   let showDialog = false;
   let selectedId = null;
 
   let gridInstance;
+
+  onMount(async () => {
+    await loadData();
+  });
 
   const editSkin = function (id: any) {
     selectedId = id;
@@ -22,8 +28,26 @@
 
   const deleteSkin = async function (id: any) {
     try {
-      const res = await skinUpsert({ doDelete: true, skinId: id });
-      console.log(res);
+      const detail = (await skinGet(id)) as any;
+      const res = await skinUpsert({
+        ...detail.skin,
+        doDelete: true,
+        skinId: id,
+      });
+      rerenderGrid();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const restoreSkin = async function (id: any) {
+    try {
+      const detail = (await skinGet(id)) as any;
+      const res = await skinUpsert({
+        ...detail.skin,
+        doRestore: true,
+        skinId: id,
+      });
       rerenderGrid();
     } catch (e) {
       console.log(e);
@@ -35,24 +59,35 @@
   }
 
   const transformData = (skins: any) => {
-    const filtered = skins.filter((skin) => {
-      if (skin.isDeleted) {
-        return !skin.isDeleted;
-      }
-      return true;
-    });
-
-    return filtered.map((skin) => {
+    return skins.map((skin) => {
+      const deleted = skin.isDeleted;
       return [
-        null,
+        [
+          btn({
+            text: "Edit",
+            onClick: () => editSkin(skin.id),
+            className: "text-indigo-500 mr-2",
+          }),
+          !deleted
+            ? btn({
+                text: "Delete",
+                onClick: () => deleteSkin(skin.id),
+                className: "text-red-500",
+              })
+            : btn({
+                text: "Restore",
+                onClick: () => restoreSkin(skin.id),
+                className: "text-green-500",
+              }),
+        ],
         skin.id,
-        skin.name,
-        skin.descrHtml,
+        !deleted ? skin.name : del(skin.name),
+        raw(skin.descrHtml),
         skin.price,
         skin.quota,
-        skin.element,
-        skin.rarity,
-        skin.series,
+        $elements[skin.element] || skin.element,
+        $rarities[skin.rarity] || skin.rarity,
+        $series[skin.series] || skin.series,
       ];
     });
   };
@@ -65,30 +100,7 @@
     <Grid
       bind:instance={gridInstance}
       columns={[
-        {
-          name: "Action",
-          formatter: (_cell, row) => {
-            const skinId = row.cells[1].data;
-            return [
-              h(
-                "button",
-                {
-                  onClick: () => editSkin(skinId),
-                  className: "text-indigo-500",
-                },
-                "edit"
-              ),
-              h(
-                "button",
-                {
-                  onClick: () => deleteSkin(skinId),
-                  className: "text-red-500",
-                },
-                "delete"
-              ),
-            ];
-          },
-        },
+        "Action",
         {
           name: "id",
           hidden: true,
@@ -122,7 +134,7 @@
 
 <Modal bind:open={showDialog} let:closeCallback class="py-8 px-4" noClickaway>
   {#if showDialog}
-    <SkinDialog {closeCallback} id={selectedId} onSave={rerenderGrid} />
+    <SkinDialog {closeCallback} bind:id={selectedId} onSave={rerenderGrid} />
   {/if}
 </Modal>
 

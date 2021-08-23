@@ -5,9 +5,8 @@
   import Image from "@/components/Image";
   import FileInput from "@/components/FileInput";
   import Button from "@/components/Button";
-  import { onMount } from "svelte";
-  import { elements, loadData, rarities, series } from "./store";
-  import { skinGet, skinUpload, skinUpsert } from "@/api/skin";
+  import { elements, rarities, series } from "./store";
+  import { skinGet, skinUpsert } from "@/api/skin";
   import Video from "@/components/Video/_Video.svelte";
 
   export let closeCallback: () => void;
@@ -16,18 +15,7 @@
 
   $: editMode = !!id;
 
-  let files = {
-    videoUrl: null,
-    rockImgUrl: null,
-    paperImgUrl: null,
-    scissorImgUrl: null,
-  };
-
   let loading = false;
-
-  onMount(async () => {
-    await loadData();
-  });
 
   const originalValues = {
     name: "",
@@ -66,15 +54,10 @@
 
   const clear = () => {
     values = { ...originalValues };
-    files = {
-      videoUrl: null,
-      rockImgUrl: null,
-      paperImgUrl: null,
-      scissorImgUrl: null,
-    };
   };
 
   const close = () => {
+    id = null;
     clear();
     closeCallback();
   };
@@ -88,28 +71,15 @@
         values[v[0]] = v[1];
       });
       values["skinId"] = skin.id;
-      files.videoUrl = setFiles(skin.videoUrl);
-      files.rockImgUrl = setFiles(skin.rockImgUrl);
-      files.scissorImgUrl = setFiles(skin.scissorImgUrl);
-      files.paperImgUrl = setFiles(skin.paperImgUrl);
-      console.log(values);
+      values.videoUrl = setFiles(skin.videoUrl);
+      values.rockImgUrl = setFiles(skin.rockImgUrl);
+      values.scissorImgUrl = setFiles(skin.scissorImgUrl);
+      values.paperImgUrl = setFiles(skin.paperImgUrl);
     } catch {}
   };
 
   const setFiles = (file) => {
-    if (file) {
-      return `https://diamondhandsapi.candlestick.com/${file}`;
-    }
-    return null;
-  };
-
-  const uploadFile = async (e: any, field: any) => {
-    try {
-      const res = (await skinUpload(e.detail.file)) as any;
-      const filePath = res.skinUpload.filePath;
-      values[field] = filePath;
-      files[field] = `https://diamondhandsapi.candlestick.com/${filePath}`;
-    } catch {}
+    return file ? file : null;
   };
 </script>
 
@@ -163,25 +133,25 @@
         <div class="flex space-x-8">
           <div class="w-36">
             <p class="text-sm font-semibold mb-1">Motion Card</p>
-            <Video class="w-full h-32" src={files.videoUrl} />
-            <FileInput on:change={(e) => uploadFile(e, "videoUrl")} />
+            <Video class="w-full h-32" src={values.videoUrl} />
+            <FileInput bind:url={values.videoUrl} uploadUrl="SkinUpload" />
           </div>
           <div class="w-36">
             <p class="text-sm font-semibold mb-1">Rock hand-state</p>
-            <Image class="w-full h-32" src={files.rockImgUrl} />
-            <FileInput on:change={(e) => uploadFile(e, "rockImgUrl")} />
+            <Image class="w-full h-32" src={values.rockImgUrl} />
+            <FileInput bind:url={values.rockImgUrl} uploadUrl="SkinUpload" />
           </div>
         </div>
         <div class="flex space-x-8">
           <div class="w-36">
             <p class="text-sm font-semibold mb-1">Scissors hand-state</p>
-            <Image class="w-full h-32" src={files.scissorImgUrl} />
-            <FileInput on:change={(e) => uploadFile(e, "scissorImgUrl")} />
+            <Image class="w-full h-32" src={values.scissorImgUrl} />
+            <FileInput bind:url={values.scissorImgUrl} uploadUrl="SkinUpload" />
           </div>
           <div class="w-36">
             <p class="text-sm font-semibold mb-1">Paper hand-state</p>
-            <Image class="w-full h-32" src={files.paperImgUrl} />
-            <FileInput on:change={(e) => uploadFile(e, "paperImgUrl")} />
+            <Image class="w-full h-32" src={values.paperImgUrl} />
+            <FileInput bind:url={values.paperImgUrl} uploadUrl="SkinUpload" />
           </div>
         </div>
         <div class="grid gap-4 grid-cols-1 md:grid-cols-2">

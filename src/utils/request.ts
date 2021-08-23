@@ -28,7 +28,7 @@ async function fetchApi(
     const res = await api(path, opts).json();
     cbOk(res);
   } catch (e) {
-    console.log(e);
+    console.log(e); // handle error here
     cbErr(e);
   }
 }
