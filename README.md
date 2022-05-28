@@ -1,10 +1,10 @@
 # Multipage Svelte
 
-The purpose of this project is to make Svelte that defaults to SPA into an static generated MPA. So for deployment you only need to rsync the `.html`, `.css`, `.js` and any other non `.svelte` files.
+The purpose of this project is to make Svelte that defaults to SPA into an static generated MPA. So for deployment you only need to rsync the `.html`, `.css`, `.js` and any other non `.svelte` files. It was originally built for [Z](https://github.com/kokizzu/gotro/tree/master/Z)-template engine.
 
-Creator [sameerveda](//github.com/sameerveda)
+Creator: [sameerveda](//github.com/sameerveda)
 
-Specs/sponsored by [kokizzu](//github.com/kokizzu)
+Specs/sponsored by: [kokizzu](//github.com/kokizzu)
 
 ## Specification
 
