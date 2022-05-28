@@ -31,3 +31,7 @@ It would automatically generate 3 files: `foo/bar.html`, `subpage/page3.html`, a
 5. will look for `_layout.html` in current directory or upper directories as base template
 6. using minimal set of npm dependencies and no outdated package
 7. planned to use Nodejs or Go (similar like what https://github.com/livebud/bud or https://github.com/plentico/plenti did)
+
+## How to usa
+
+TODO continue this (install esbuild, etc)
