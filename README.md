@@ -31,7 +31,7 @@ It would automatically generate 3 files: `foo/bar.html`, `subpage/page3.html`, a
 5. will look for `_layout.html` in current directory or upper directories as base template
 6. using minimal set of npm dependencies and no outdated package
 7. planned to use Nodejs or Go (similar like what https://github.com/livebud/bud or https://github.com/plentico/plenti did)
-8. it will not remove comments, especially one that used in `Z` template engine, like: `/*! c1 */`, `#{c2}`, `[/* c3 */]`, or `{/* c4 */}`
+8. generated html will not remove comments, especially one that used in `Z` template engine, like: `/*! c1 */`, `#{c2}`, `[/* c3 */]`, or `{/* c4 */}`
 
 ## How to usa
 
