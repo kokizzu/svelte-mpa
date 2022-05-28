@@ -1,6 +1,6 @@
 # Multipage Svelte
 
-The purpose of this project is to make Svelte that defaults to SPA into an static generated MPA
+The purpose of this project is to make Svelte that defaults to SPA into an static generated MPA. So for deployment you only need to rsync the `.html`, `.css`, `.js` and any other non `.svelte` files.
 
 Creator [sameerveda](//github.com/sameerveda)
 
