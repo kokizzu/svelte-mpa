@@ -2,8 +2,9 @@
 
 The purpose of this project is to make velte that defaults to SPA into MPA
 
-Creator: [sameerveda](//github.com/sameerveda)
-Sponsored by [kokizzu](//github.com/kokizzu)
+Creator [sameerveda](//github.com/sameerveda)
+
+Specs/sponsored by [kokizzu](//github.com/kokizzu)
 
 ## Specification
 
