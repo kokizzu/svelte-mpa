@@ -3,7 +3,7 @@
 	import Row from '../_components/row.svelte'
 
 	export let list = [/* from_server */] // this comment should not be deleted
-	export let str = '#{from_server2}' 
+	export let str = '#{from_server2}';
 	
 	if (!list.length) {
 		list = [
@@ -15,6 +15,7 @@
 </script>
 
 <div>
+	<p>{str}</p>
 	<table>
 		<thead>
 		<tr>

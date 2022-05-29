@@ -5,31 +5,22 @@
     "start": "npm run dev",
     "dev": "node build.js --watch --serve",
     "build": "node build.js",
+    "build:prod": "node build.js --minify",
     "serve": "node build.js --serve"
   },
   "devDependencies": {
-    "commander": "^9.3.0",
+    "chokidar": "^3.5.3",
     "esbuild": "^0.14.41",
-    "esbuild-plugin-alias": "^0.2.1",
     "esbuild-svelte": "^0.7.0",
+    "live-server": "^1.2.2",
+    "lodash": "^4.17.21",
+    "parse5": "^7.0.0",
     "prettier": "^2.6.2",
-    "sass": "^1.38.0",
-    "serve-http": "^1.0.6",
-    "svelte": "^3.42.1",
     "svelte-preprocess": "^4.7.4",
+    "svelte-windicss-preprocess": "^4.2.6",
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "attractions": "^3.3.0",
-    "gridjs": "^5.0.2",
-    "gridjs-svelte": "^1.2.0",
-    "ky": "^0.28.5",
-    "lodash": "^4.17.21",
-    "svelte-calendar": "^2.0.4",
-    "svelte-notifications": "^0.9.91",
-    "svelte-select": "^4.4.0",
-    "svelte-windicss-preprocess": "^4.2.6",
-    "tinydate": "^1.3.0",
     "windicss": "^3.1.7"
   },
   "prettier": {
