@@ -17,5 +17,6 @@ module.exports = {
     }),
     sveltePreprocess(),
   ],
+  cache: false,
   compilerOptions: { preserveComments: true },
 };

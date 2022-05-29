@@ -74,8 +74,6 @@ const svelteJsPathResolver = {
         resolveDir: dirname(path),
       };
     });
-
-    const cache = {};
   },
 };
 
@@ -243,9 +241,9 @@ function layoutFor(path) {
   const compiledFiles = new Set();
   let cache = {};
 
-  function saveFiles() {
+  function saveFiles(files = builder) {
     const output = {};
-    for (const { path, text } of builder.outputFiles) {
+    for (const { path, text } of files.outputFiles) {
       if (cache[path] === text) continue;
       cache[path] = text;
 
@@ -277,7 +275,7 @@ function layoutFor(path) {
       .watch('.', { ignored: s => ignoreDirs.has(s) || ignoreDirs.has(join('./', s)) })
       .on('all', async (event, path) => {
         if (!watcherReady) return void listed_files.add(path);
-        if (compiledFiles.includes(resolve(path))) return;
+        if (compiledFiles.has(resolve(path))) return;
 
         console.log(event + ':', path);
 
@@ -292,8 +290,7 @@ function layoutFor(path) {
           }
         }
 
-        await builder.rebuild();
-        saveFiles();
+        saveFiles(await builder.rebuild());
       })
       .on('ready', () => {
         console.log(`watching ${listed_files.size} files/dirs for changes`);
@@ -304,6 +301,7 @@ function layoutFor(path) {
     require('live-server').start({
       open: true,
       pubdir: __dirname,
-      ignore: Array.from(ignoreDirs).join(','),
+      ignore: [...ignoreDirs, '*.js', '*.ts', '*.svelte'].join(','),
+      wait: 500,
     });
 })();
