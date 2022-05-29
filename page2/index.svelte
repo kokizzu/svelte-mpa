@@ -2,8 +2,9 @@
 	// should generate page2/index.html from outer _layout.html
 	import Row from './_components/row.svelte'
 
-	export let list = [/* from_server */]
-
+	export let list = [/* from_server */] // this comment should not be deleted
+	export let str = '#{from_server2}' 
+	
 	if (!list.length) {
 		list = [
 			['A', 1],
