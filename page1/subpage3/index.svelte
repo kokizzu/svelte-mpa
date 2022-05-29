@@ -1,6 +1,6 @@
 <script>
-	// should generate page2/index.html from outer _layout.html
-	import Row from '../_components/row.svelte'
+	// should generate page1/subpage3/index.html from outer _layout.html
+	import Row from '../../_components/row.svelte'
 
 	export let list = [/* from_server */] // this comment should not be deleted
 	export let str = '#{from_server2}' 
