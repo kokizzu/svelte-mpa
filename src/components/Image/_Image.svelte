@@ -42,7 +42,7 @@
   </div>
 {/if}
 
-<style lang="postcss">
+<style windi:preflights windi:safelist>
   .no-image {
     @apply bg-gray-300 grid place-items-center text-gray-600;
   }

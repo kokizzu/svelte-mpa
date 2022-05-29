@@ -59,7 +59,7 @@
   {/if}
 </div>
 
-<style lang="postcss">
+<style windi:preflights windi:safelist>
   .file-btn {
     @apply px-4 py-2 border border-indigo-500 bg-white rounded text-center;
     @apply font-semibold text-sm text-indigo-500 inline-block w-full cursor-pointer;

@@ -23,7 +23,7 @@
 
 </main>
 
-<style>
+<style global windi:global windi:preflights windi:safelist>
     :root {
         font-family : -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
         Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;

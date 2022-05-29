@@ -24,8 +24,7 @@
   });
 </script>
 
-<!-- svelte-ignore a11y-label-has-associated-control -->
-<label class="textbox">
+<label for={null} class="textbox">
   {#if label}
     <span class="textbox-label">{label}</span>
   {/if}
@@ -51,7 +50,7 @@
   {/if}
 </label>
 
-<style lang="postcss">
+<style windi:global windi:preflights windi:safelist>
   .textbox {
     @apply block w-full;
   }

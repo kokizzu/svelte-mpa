@@ -8,8 +8,7 @@
   $: items = Object.entries(options).map((v) => ({ value: v[0], label: v[1] }));
 </script>
 
-<!-- svelte-ignore a11y-label-has-associated-control -->
-<label class="combobox">
+<label for={null} class="combobox">
   {#if label}
     <span class="combobox-label">{label}</span>
   {/if}
@@ -24,7 +23,7 @@
   />
 </label>
 
-<style lang="postcss">
+<style windi:preflights windi:safelist>
   .combobox {
     --border: theme("colors.gray.500") 1px solid;
     --borderHoverColor: theme("colors.gray.500");

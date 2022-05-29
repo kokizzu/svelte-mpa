@@ -34,8 +34,9 @@
   </div>
 </div>
 
-<style lang="postcss">
+<style windi:global windi:preflights windi:safelist>
   .login {
     @apply w-full h-full grid place-items-center bg-opacity-40 bg-black fixed inset-0 z-50;
   }
 </style>
+

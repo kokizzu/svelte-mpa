@@ -142,8 +142,8 @@
   <Login />
 {/if}
 
-<style lang="postcss">
-  :global(html, body, #app) {
+<style global windi:global windi:preflights windi:safelist>
+  html, body, #app{
     @apply w-full h-full;
   }
 </style>
