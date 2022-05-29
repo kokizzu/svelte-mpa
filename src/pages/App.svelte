@@ -1,6 +1,5 @@
 <script lang="ts">
 	import {APIs,LastUpdatedAt} from "./api";
-	
 	let apis = []
 	
 	for (let z in APIs) {

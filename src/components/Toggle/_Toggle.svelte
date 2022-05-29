@@ -10,12 +10,11 @@
   };
 </script>
 
-<!-- svelte-ignore a11y-label-has-associated-control -->
 <div class="flex items-center">
   {#if label}
     <p class="text-sm font-semibold">{label}</p>
   {/if}
-  <label class="flex items-center cursor-pointer ml-4" on:click={toggleValue}>
+  <label for={null} class="flex items-center cursor-pointer ml-4" on:click={toggleValue}>
     <!-- toggle -->
     <div class="relative">
       <!-- input -->
@@ -39,7 +38,7 @@
   </label>
 </div>
 
-<style lang="postcss">
+<style windi:global windi:preflights windi:safelist>
   .dot-checked {
     transform: translateX(100%);
   }

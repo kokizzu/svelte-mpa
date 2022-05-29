@@ -35,7 +35,7 @@
   </button>
 {/if}
 
-<style lang="postcss">
+<style windi:preflights windi:safelist>
   .btn {
     @apply inline-flex justify-center items-center py-2 px-4;
     @apply border text-sm font-medium rounded;

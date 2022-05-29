@@ -1,22 +1,22 @@
 <script lang="ts">
-  import Button from "@/components/Button";
-  import Login from "@/components/Login.svelte";
-  import Sidebar from "@/components/Sidebar.svelte";
-  import { token } from "@/stores/user";
-  import Grid from "gridjs-svelte";
-  import Modal from "attractions/modal/modal.svelte";
-  import { endpoint } from "@/utils/request";
-  import EventDialog from "./EventDialog.svelte";
-  import { eventGet, eventUpsert } from "@/api/event";
-  import { btn, del, raw } from "@/utils/vdom";
-  import tinydate from "tinydate";
+  import Button from '@/components/Button';
+  import Login from '@/components/Login.svelte';
+  import Sidebar from '@/components/Sidebar.svelte';
+  import { token } from '@/stores/user';
+  import Grid from 'gridjs-svelte';
+  import Modal from 'attractions/modal/modal.svelte';
+  import { endpoint } from '@/utils/request';
+  import EventDialog from './EventDialog.svelte';
+  import { eventGet, eventUpsert } from '@/api/event';
+  import { btn, del, raw } from '@/utils/vdom';
+  import tinydate from 'tinydate';
 
   let showDialog = false;
   let selectedId = null;
 
   let gridInstance;
 
-  const formatDate = tinydate("{DD}/{MM}/{YYYY}");
+  const formatDate = tinydate('{DD}/{MM}/{YYYY}');
 
   const editEvent = function (id: any) {
     selectedId = id;
@@ -56,25 +56,25 @@
   }
 
   const transformData = (events: any) => {
-    return events.map((evt) => {
+    return events.map(evt => {
       const deleted = evt.isDeleted;
       return [
         [
           btn({
-            text: "Edit",
+            text: 'Edit',
             onClick: () => editEvent(evt.id),
-            className: "text-indigo-500 mr-2",
+            className: 'text-indigo-500 mr-2',
           }),
           !deleted
             ? btn({
-                text: "Delete",
+                text: 'Delete',
                 onClick: () => deleteEvent(evt.id),
-                className: "text-red-500",
+                className: 'text-red-500',
               })
             : btn({
-                text: "Restore",
+                text: 'Restore',
                 onClick: () => restoreEvent(evt.id),
-                className: "text-green-500",
+                className: 'text-green-500',
               }),
         ],
         evt.id,
@@ -93,27 +93,26 @@
     <Grid
       bind:instance={gridInstance}
       columns={[
-        "Action",
+        'Action',
         {
-          name: "id",
+          name: 'id',
           hidden: true,
         },
-        "Name",
-        "Description",
-        "Created At",
+        'Name',
+        'Description',
+        'Created At',
       ]}
       pagination={{
         enabled: true,
         limit: 10,
         server: {
-          url: (prev, page, limit) =>
-            `${prev}?limit=${limit}&offset=${page * limit}`,
+          url: (prev, page, limit) => `${prev}?limit=${limit}&offset=${page * limit}`,
         },
       }}
       server={{
         url: `${endpoint}/EventList`,
-        then: (data) => transformData(data.events),
-        total: (data) => data.total,
+        then: data => transformData(data.events),
+        total: data => data.total,
       }}
     />
   </div>
@@ -129,8 +128,8 @@
   <Login />
 {/if}
 
-<style lang="postcss">
-  :global(html, body, #app) {
+<style global windi:global windi:preflights windi:safelist>
+  html, body, #app {
     @apply w-full h-full;
   }
 </style>

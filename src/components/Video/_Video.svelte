@@ -16,8 +16,8 @@
 </script>
 
 {#if src}
-  <!-- svelte-ignore a11y-media-has-caption -->
   <video controls {src} transition:fade class={className} bind:this={el}>
+    <track kind="captions">
     Your browser does not support the video tag.
   </video>
 {:else}
@@ -36,7 +36,7 @@
   </div>
 {/if}
 
-<style lang="postcss">
+<style windi:global windi:preflights windi:safelist>
   .no-image {
     @apply bg-gray-300 grid place-items-center text-gray-600;
   }
