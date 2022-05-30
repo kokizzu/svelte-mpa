@@ -3,7 +3,8 @@
   import Row from '../../_components/row.svelte';
   import Button from './_mybutton.svelte'
 
-  export let list = [/* from_server */]; 
+  export let list = [/* from_server */]; // this comment should not be deleted
+  export let list2 = [/* from_server */]; 
   // this comment ^ should not be deleted
   export let str = '#{from_server2}';
 
