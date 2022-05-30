@@ -35,4 +35,10 @@ It would automatically generate 3 files: `foo/bar.html`, `subpage/page3.html`, a
 
 ## How to use
 
-TODO continue this (install esbuild, etc)
+```shell
+$ npm install # install dependencies
+$ npm start # start dev-server
+
+$ npm run build:prod # build project for production
+
+```
