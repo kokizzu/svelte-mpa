@@ -45,6 +45,19 @@ $ npm run build:prod # build project for production
 
 ```
 
+## Dev Dependencies
+
+- [svelte](//svelte.dev/) - cybernetically enhanced web apps
+- [esbuild](//esbuild.github.io/) - an extremely fast JavaScript bundler
+- [esbuild-svelte](//github.com/EMH333/esbuild-svelte) - plugin to compile svelte components for bundling with esbuild
+- [chokidar](//github.com/paulmillr/chokidar) - minimal and efficient cross-platform file watching library
+- [five-server](//github.com/yandeu/five-server) - development Server with Live Reload Capability
+- [lodash](//lodash.com) - A modern JavaScript utility library delivering modularity, performance & extras
+- [parse5](//github.com/inikulin/parse5) - html parsing/serialization toolset for node.js
+- [svelte-preprocess](//github.com/sveltejs/svelte-preprocess) - a svelte preprocessor with sensible defaults and support for: postcss, scss, less, stylus, coffeescript, typescript, pug and much more.
+
+zero production dependency.
+
 ## TODO
 
 [ ] update built comment from highest modification date of dependencies, eg. if `a.svelte` depends on `b.js` and `c.js`, the resulting `a.html` html comment should be max modification date of those three 
