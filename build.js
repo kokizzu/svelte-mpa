@@ -3,11 +3,13 @@ const esbuild = require('esbuild');
 const { readdirSync, statSync, existsSync, writeFileSync, mkdirSync, readFileSync } = require('fs');
 const { join, basename, resolve, dirname, relative } = require('path');
 const sveltePlugin = require('esbuild-svelte');
-const { kebabCase, isEqual, size } = require('lodash');
-const { copyFileSync } = require('fs');
+const { isEqual } = require('lodash');
 const parse5 = require('parse5');
 
-const [watch, serve, minify, debug, logVars] = ['--watch', '--serve', '--minify', '--debug', '--log-vars'].map(s => process.argv.includes(s));
+const [watch, serve, minify, debug, logVars] = ['--watch', '--serve', '--minify', '--debug', '--log-vars'].map(s =>
+  process.argv.includes(s)
+);
+const debug_console_log = (args, returnIndex = 0) => (debug && console.log(...args), args[returnIndex]);
 
 const ignoreDirs = new Set([
   'node_modules',
@@ -19,9 +21,10 @@ const ignoreDirs = new Set([
   'build.js',
 ]);
 
+// find page candidates
 function findPages(dir = '.', sink = []) {
-  if (ignoreDirs.has(dir.replace('./', ''))) {
-    console.log('skip: ', dir);
+  if (ignoreDirs.has(dir.replace('./', '').replace('.\\', ''))) {
+    debug && console.log('skip: ', dir);
     return;
   }
 
@@ -38,7 +41,7 @@ function findPages(dir = '.', sink = []) {
 }
 
 const _zId_prefix = `z_placeholder_${Math.floor(Math.random() * 10000000).toString(16)}_`;
-const _zReplacer = s => `'${_zId_prefix}${Buffer.from(s).toString('base64')}'`;
+const _zReplacer = s => debug_console_log(['z-replace:', s, `'${_zId_prefix}${Buffer.from(s).toString('base64')}'`], 2);
 
 const zPlaceholderReplacer = content =>
   // map /*! mapKey */
@@ -52,9 +55,10 @@ const zPlaceholderReplacer = content =>
 global.zPlaceholderReplacer = zPlaceholderReplacer;
 
 const zPlaceholderRestore = (content, sink) =>
-  content?.replace(new RegExp(`("|')${_zId_prefix}(\\w+=?)\\1`, 'g'), (_, _2, s) => {
+  content?.replace(new RegExp(`("|')${_zId_prefix}(\\w+=*)\\1`, 'g'), (_, _2, s) => {
     s = Buffer.from(s, 'base64').toString('ascii');
     sink.push(s);
+    debug && console.log('z-restore', _, s);
     return s;
   });
 
@@ -87,6 +91,7 @@ function createBuilder(entryPoints) {
     write: false,
     plugins: [svelteJsPathResolver, sveltePlugin(require('./svelte.config'))],
     incremental: !!watch,
+    sourcemap: false,
     minify,
   });
 }
@@ -233,10 +238,9 @@ function layoutFor(path) {
 (async () => {
   let watcherReady = false;
 
-  console.log('first build start');
+  watch && console.log('first build start');
   let pages = findPages();
   let builder = await createBuilder(pages);
-  console.log('first build end\n');
 
   const listed_files = new Set();
   const compiledFiles = new Set();
@@ -270,6 +274,7 @@ function layoutFor(path) {
   }
 
   saveFiles();
+  watch && console.log('first build end\n');
 
   watch &&
     chokidar
