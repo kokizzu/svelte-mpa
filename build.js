@@ -160,32 +160,32 @@ function layoutFor(path) {
 
   const jsKEY = `${Math.random()}-JS-${Math.random()}`;
   const cssKEY = `${Math.random()}-CSS-${Math.random()}`;
-  const commentKEY = `${Math.random()}-COMMENT-${Math.random()}`;
-  const cssVarsKey = `${Math.random()}-CSS-COMMENT-${Math.random()}`;
-  const jsVarsKey = `${Math.random()}-JS-COMMENT-${Math.random()}`;
+  const comments = {
+    nodeName: '#comment',
+    data: '',
+  };
+  const cssVarsComments = {
+    nodeName: '#comment',
+    data: '',
+  };
+  const jsVarsComments = {
+    nodeName: '#comment',
+    data: '',
+  };
 
   body.childNodes = [
     ...body.childNodes,
-    {
-      nodeName: '#comment',
-      data: commentKEY,
-    },
+    comments,
     {
       nodeName: '#text',
       value: '\n',
     },
-    {
-      nodeName: '#comment',
-      data: cssVarsKey,
-    },
+    cssVarsComments,
     {
       nodeName: '#text',
       value: '\n',
     },
-    {
-      nodeName: '#comment',
-      data: jsVarsKey,
-    },
+    jsVarsComments,
     {
       nodeName: '#text',
       value: '\n',
@@ -215,17 +215,18 @@ function layoutFor(path) {
   ];
 
   debug && console.log('build layout for: ', path || defaultKey);
-  const content0 = parse5.serialize(tree);
 
   return (layoutFor.cache[path || defaultKey] = ({ js, css }) => {
     const cssVars = [],
       jsVars = [];
-    return content0
-      .replace(cssKEY, zPlaceholderRestore(css, cssVars) || '')
-      .replace(jsKEY, zPlaceholderRestore(js, jsVars) || '')
-      .replace(commentKEY, `BUILD TIME: ${new Date().toISOString()}`)
-      .replace(cssVarsKey, cssVars.length ? `--- CSS z-vars --- \n${cssVars.join('\n')}` : '')
-      .replace(jsVarsKey, jsVars.length ? `--- JS z-vars --- \n${jsVars.join('\n')}` : '');
+    js = zPlaceholderRestore(js, cssVars) || '';
+    css = zPlaceholderRestore(css, cssVars) || '';
+
+    comments.data = `BUILD TIME: ${new Date().toISOString()}`;
+    cssVarsComments.data = cssVars.length ? `--- CSS z-vars --- \n${cssVars.join('\n')}` : '';
+    jsVarsComments.data = jsVars.length ? `--- JS z-vars --- \n${jsVars.join('\n')}` : '';
+
+    return parse5.serialize(tree).replace(cssKEY, css).replace(jsKEY, js);
   });
 }
 

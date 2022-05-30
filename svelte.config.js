@@ -8,14 +8,14 @@ module.exports = {
   // Consult https://github.com/sveltejs/svelte-preprocess
   // for more information about preprocessors
   preprocess: [
-    {
-      style: contentReplacer,
-      script: contentReplacer,
-    },
     windi({
       plugins: [require('windicss/plugin/forms')],
     }),
     sveltePreprocess(),
+    {
+      style: contentReplacer,
+      script: contentReplacer,
+    },
   ],
   cache: false,
   compilerOptions: { preserveComments: true },
