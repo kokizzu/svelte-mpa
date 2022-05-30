@@ -80,5 +80,6 @@ zero production dependency.
   let arr = (window||{}).arr || [];
 </script>
 
-generated `bla.min.js` will be referenced by `bla.html`: <script src='bla.min.js?generatedTime'></script>
+generated `bla.min.js` will be referenced by `bla.html`: 
+<script src='bla.min.js?generatedTime'></script>
 ```
