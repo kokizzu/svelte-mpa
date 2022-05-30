@@ -62,6 +62,23 @@ npm run build:prod  # build project for production
 
 zero production dependency.
 
-## TODO
+## TODO / Possible Improvement
 
-- [ ] update built comment from highest modification date of dependencies, eg. if `a.svelte` depends on `b.js` and `_c.svelte`, the resulting `a.html` html comment should be max modification date of those three 
+- [ ] update `<!--BUILD TIME` generated comment from highest modification date of dependencies, eg. if `a.svelte` depends on `b.js` and `_c.svelte`, the resulting `a.html` html comment should be max modification date of those three 
+- [ ] generate bundled javascript into `[svelteFileName].min.js` foreach `.svelte` file that imported by generated `[svelteFileName].html`, to reduce overhead when page's bundled reactivity code size is very big, so the code might look like this:
+```html
+_layout.html:
+...
+<script>
+  let obj = {/* some_obj */}
+  let arr = [/* some_arr */]
+</script>
+
+bla.svelte:
+<script>
+  let obj = (window||{}).obj || {};
+  let arr = (window||{}).arr || [];
+</script>
+
+generated `bla.min.js` will be referenced by `bla.html`
+```
