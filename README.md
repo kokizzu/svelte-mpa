@@ -35,11 +35,15 @@ It would automatically generate 3 files: `foo/bar.html`, `subpage/page3.html`, a
 6. using minimal set of npm dependencies and no outdated package
 7. generated html will not remove comments, especially one that used in [Z](https://github.com/kokizzu/gotro/tree/master/Z) template engine, like: `/*! c1 */`, `#{c2}`, `[/* c3 */]`, or `{/* c4 */}`
 
-## How to use
+## Usage
 
 ```shell
-npm install         # install dependencies
-npm start           # start dev-server
+npm install -g degit                 # scaffolding helper
+degit kokizzu/svelte-mpa myproject1  # clone this repo with new name
+cd myproject1                        
+
+npm install  # install dependencies
+npm start    # start dev-server
 
 npm run build:prod  # build project for production
 ./deploy.sh         # example deployment script for single server
