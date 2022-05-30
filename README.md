@@ -44,3 +44,7 @@ $ npm start # start dev-server
 $ npm run build:prod # build project for production
 
 ```
+
+## TODO
+
+[ ] update built comment from highest modification date of dependencies, eg. if `a.svelte` depends on `b.js` and `c.js`, the resulting `a.html` html comment should be max modification date of those three 
