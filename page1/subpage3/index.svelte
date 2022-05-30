@@ -40,6 +40,9 @@
   p {
     font-size: 20px;
     color: red;
-    background: red;
+    background: yellow;
+  }
+  table, th {
+	  border: 1px solid grey;
   }
 </style>

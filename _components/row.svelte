@@ -8,3 +8,9 @@
 		<td>{cell}</td>
 	{/each}
 </tr>
+
+<style>
+	td {
+		border: 1px solid blue;
+	}
+</style>

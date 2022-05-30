@@ -305,9 +305,9 @@ function layoutFor(path) {
 
   const FiveServer = require('five-server').default
   serve &&
-    new FiveServer().start({
+    await (new FiveServer()).start({
       open: true,
-      pubdir: __dirname,
+      workspace: __dirname,
       ignore: [...ignoreDirs, '*.js', '*.ts', '*.svelte'].join(','),
       wait: 500,
     });
