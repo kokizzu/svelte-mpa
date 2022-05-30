@@ -7,7 +7,7 @@ const { kebabCase, isEqual, size } = require('lodash');
 const { copyFileSync } = require('fs');
 const parse5 = require('parse5');
 
-const [watch, serve, minify, debug] = ['--watch', '--serve', '--minify', '--debug'].map(s => process.argv.includes(s));
+const [watch, serve, minify, debug, logVars] = ['--watch', '--serve', '--minify', '--debug', '--log-vars'].map(s => process.argv.includes(s));
 
 const ignoreDirs = new Set([
   'node_modules',
@@ -180,12 +180,12 @@ function layoutFor(path) {
       nodeName: '#text',
       value: '\n',
     },
-    cssVarsComments,
+    logVars && cssVarsComments,
     {
       nodeName: '#text',
       value: '\n',
     },
-    jsVarsComments,
+    logVars && jsVarsComments,
     {
       nodeName: '#text',
       value: '\n',
