@@ -60,4 +60,4 @@ zero production dependency.
 
 ## TODO
 
-[ ] update built comment from highest modification date of dependencies, eg. if `a.svelte` depends on `b.js` and `c.js`, the resulting `a.html` html comment should be max modification date of those three 
+- [ ] update built comment from highest modification date of dependencies, eg. if `a.svelte` depends on `b.js` and `c.js`, the resulting `a.html` html comment should be max modification date of those three 
