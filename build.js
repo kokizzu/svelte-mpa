@@ -1,6 +1,6 @@
 const chokidar = require('chokidar');
 const esbuild = require('esbuild');
-const { readdirSync, statSync, existsSync, writeFileSync, mkdirSync, readFileSync } = require('fs');
+const { readdirSync, statSync, existsSync, writeFileSync, readFileSync } = require('fs');
 const { join, basename, resolve, dirname, relative } = require('path');
 const sveltePlugin = require('esbuild-svelte');
 const { isEqual } = require('lodash');
