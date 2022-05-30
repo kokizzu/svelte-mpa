@@ -304,7 +304,7 @@ function layoutFor(path) {
       });
 
   serve &&
-    require('live-server').start({
+    require('five-server').start({
       open: true,
       pubdir: __dirname,
       ignore: [...ignoreDirs, '*.js', '*.ts', '*.svelte'].join(','),
