@@ -1,10 +1,24 @@
 # Multipage Svelte, Svelte MPA
 
-The purpose of this project is to make Svelte that defaults to SPA into an statically-generated MPA. So for deployment you only need to [rsync](//rsync.samba.org/) the `.html`, `.css`, `.js` and any other non-`.svelte` files. It was originally built for [Z](https://github.com/kokizzu/gotro/tree/master/Z) template engine.
+The purpose of this project is to make Svelte that defaults to SPA into an statically-generated MPA (multipage SPA). 
+So for deployment you only need to [rsync](//rsync.samba.org/) the `.html`, `.css`, `.js` and any other non-`.svelte` files. 
+It was originally built for [Z](https://github.com/kokizzu/gotro/tree/master/Z) template engine.
 
 Creator: [sameerveda](//github.com/sameerveda)
 
 Specs/sponsored by: [kokizzu](//github.com/kokizzu)
+
+## Why?
+
+If you already have backend that wasn't written in NodeJS, you can have best of two worlds, multiple page with their own meta headers and content for SEO, and reactivity using Svelte for each page. Also with this you can remove the serialization/transport/hop-cost of default setup:
+
+```
+[Browser] <--fetch-HTML-- [SvelteKit/Next/Nuxt/etc] <--fetch-API-- [ExistingBackend]
+
+became
+
+[Browser] <--fetch-HTML/API-- [ExistingBackend]
+```
 
 ## Specification
 
