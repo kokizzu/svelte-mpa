@@ -65,20 +65,20 @@ zero production dependency.
 ## TODO / Possible Improvement
 
 - [ ] update `<!--BUILD TIME` generated comment from highest modification date of dependencies, eg. if `a.svelte` depends on `b.js` and `_c.svelte`, the resulting `a.html` html comment should be max modification date of those three 
-- [ ] generate bundled javascript into `[svelteFileName].min.js` foreach `.svelte` file that imported by generated `[svelteFileName].html`, to reduce overhead when page's bundled reactivity code size is very big, so the code might look like this:
+- [ ] generate bundled javascript `[name].min.js` foreach `[name].svelte` file that will imported by generated `[name].html`, to reduce overhead when page's bundled reactivity code size is very big, only when svelte file doesn't contain Z-template special keywords, so the code might look like this:
 ```html
-_layout.html:
+`_layout.html`:
 ...
 <script>
   let obj = {/* some_obj */}
   let arr = [/* some_arr */]
 </script>
 
-bla.svelte:
+`bla.svelte`:
 <script>
   let obj = (window||{}).obj || {};
   let arr = (window||{}).arr || [];
 </script>
 
-generated `bla.min.js` will be referenced by `bla.html`
+generated `bla.min.js` will be referenced by `bla.html`: <script src='bla.min.js?generatedTime'></script>
 ```
