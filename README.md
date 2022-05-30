@@ -8,20 +8,6 @@ Creator: [sameerveda](//github.com/sameerveda)
 
 Specs/sponsored by: [kokizzu](//github.com/kokizzu)
 
-## Why?
-
-If you already have existing backend that wasn't written in NodeJS, you can have best of two worlds, multiple page with their own meta headers and content for SEO, and reactivity using Svelte for each page. Also with this you can remove the serialization/transport/hop-cost of default setup:
-
-```
-[Browser] --fetch-HTML--> [SvelteKit/Next/Nuxt/etc] --fetch-API--> [ExistingBackend]
-
-became
-
-[Browser] --fetch-HTML/API--> [ExistingBackend]
-```
-
-So your existing backend responsibility is to load the generated `.html` then replace the js variable or any template keyword with proper value for initial load/SEO. 
-
 ## Specification
 
 For example you have a project with specific structure:
@@ -77,6 +63,21 @@ npm run build:prod  # build project for production
 - [svelte-preprocess](//github.com/sveltejs/svelte-preprocess) - a svelte preprocessor with sensible defaults and support for: postcss, scss, less, stylus, coffeescript, typescript, pug and much more.
 
 zero production dependency.
+
+## Why? Motivation
+
+If you already have existing backend that wasn't written in NodeJS, you can have best of two worlds, multiple page with their own meta headers and content for SEO, and reactivity using Svelte for each page. Also with this you can remove the serialization/transport/hop-cost of default setup:
+
+```
+[Browser] --fetch-HTML--> [SvelteKit/Next/Nuxt/etc] --fetch-API--> [ExistingBackend]
+
+became
+
+[Browser] --fetch-HTML/API--> [ExistingBackend]
+```
+
+So your existing backend responsibility is to load the generated `.html` then replace the js variable or any template keyword with proper value for initial load/SEO. 
+But you can also use this as SSG.
 
 ## TODO / Possible Improvement
 
