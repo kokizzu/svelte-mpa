@@ -19,6 +19,7 @@
 
 <div>
   <p>{str}</p>
+  <p>{JSON.stringify(list2)}</p>
   <table>
     <thead>
       <tr>
