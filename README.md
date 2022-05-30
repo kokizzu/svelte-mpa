@@ -11,12 +11,15 @@ Specs/sponsored by: [kokizzu](//github.com/kokizzu)
 For example you have a project with specific structure:
 
 ```shell
+_mycomponent/
+  button.svelte
 foo/
-  bar.svelte
+  _table.svelte
+  bar.svelte --> will generate 
   any.js
 subpage/
-  page3.svelte
-index.svelte
+  page3.svelte --> will generate
+index.svelte --> will generate
 whatever.css
 whatever.js
 _layout.html
@@ -24,11 +27,11 @@ _layout.html
 
 It would automatically generate 3 files: `foo/bar.html`, `subpage/page3.html`, and `index.html`.
 
-1. generate automatically `.html` foreach `.svelte`, for production use `npm run build:prod`
+1. generate automatically `.html` foreach `.svelte`, for production build use `npm run build:prod`
 2. can import properly other js, css, or svelte file (relative import)
 3. dev mode, eg. `npm start`, it would listen to `localhost:8080` then livereload when changed like default svelte template project (will also autogenerate the `.html` files like spec number 1)
 4. there no configuration, it should work as-is automatically, anything starts with underscore will not generate `.html`, eg. `_component1.svelte`, or `_components/table.svelte`
-5. will look for `_layout.html` in current directory or upper directories as base template
+5. will look for `_layout.html` in current directory or nearest upper directories as base template
 6. using minimal set of npm dependencies and no outdated package
 7. generated html will not remove comments, especially one that used in [Z](https://github.com/kokizzu/gotro/tree/master/Z) template engine, like: `/*! c1 */`, `#{c2}`, `[/* c3 */]`, or `{/* c4 */}`
 
