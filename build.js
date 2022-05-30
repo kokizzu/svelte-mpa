@@ -303,8 +303,9 @@ function layoutFor(path) {
         watcherReady = true;
       });
 
+  const FiveServer = require('five-server').default
   serve &&
-    require('five-server').start({
+    new FiveServer().start({
       open: true,
       pubdir: __dirname,
       ignore: [...ignoreDirs, '*.js', '*.ts', '*.svelte'].join(','),
