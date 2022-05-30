@@ -11,9 +11,12 @@ const [watch, serve, minify, debug, logVars] = ['--watch', '--serve', '--minify'
 );
 const debug_console_log = (args, returnIndex = 0) => (debug && console.log(...args), args[returnIndex]);
 
-const ignoreDirs = new Set([
+const ignorePath = new Set([
   'node_modules',
+  '.vscode',
+  '.idea',
   '.git',
+  '.gitignore',
   'build.js',
   'package-lock.json',
   'package.json',
@@ -23,7 +26,7 @@ const ignoreDirs = new Set([
 
 // find page candidates
 function findPages(dir = '.', sink = []) {
-  if (ignoreDirs.has(dir.replace('./', '').replace('.\\', ''))) {
+  if (ignorePath.has(dir.replace('./', '').replace('.\\', ''))) {
     debug && console.log('skip: ', dir);
     return;
   }
@@ -278,7 +281,7 @@ function layoutFor(path) {
 
   watch &&
     chokidar
-      .watch('.', { ignored: s => ignoreDirs.has(s) || ignoreDirs.has(join('./', s)) })
+      .watch('.', { ignored: s => ignorePath.has(s) || ignorePath.has(join('./', s)) })
       .on('all', async (event, path) => {
         if (!watcherReady) return void listed_files.add(path);
         if (compiledFiles.has(resolve(path))) return;
@@ -308,7 +311,7 @@ function layoutFor(path) {
     await (new FiveServer()).start({
       open: true,
       workspace: __dirname,
-      ignore: [...ignoreDirs, '*.js', '*.ts', '*.svelte'].join(','),
+      ignore: [...ignorePath, '*.js', '*.ts', '*.svelte'].join(','),
       wait: 500,
     });
 })();
