@@ -1,6 +1,6 @@
 # Multipage Svelte, Svelte MPA
 
-The purpose of this project is to make Svelte that defaults to SPA into an static generated MPA. So for deployment you only need to rsync the `.html`, `.css`, `.js` and any other non-`.svelte` files. It was originally built for [Z](https://github.com/kokizzu/gotro/tree/master/Z) template engine.
+The purpose of this project is to make Svelte that defaults to SPA into an statically-generated MPA. So for deployment you only need to [rsync](//rsync.samba.org/) the `.html`, `.css`, `.js` and any other non-`.svelte` files. It was originally built for [Z](https://github.com/kokizzu/gotro/tree/master/Z) template engine.
 
 Creator: [sameerveda](//github.com/sameerveda)
 
@@ -38,11 +38,11 @@ It would automatically generate 3 files: `foo/bar.html`, `subpage/page3.html`, a
 ## How to use
 
 ```shell
-$ npm install # install dependencies
-$ npm start # start dev-server
+npm install         # install dependencies
+npm start           # start dev-server
 
-$ npm run build:prod # build project for production
-
+npm run build:prod  # build project for production
+./deploy.sh         # example deployment script for single server
 ```
 
 ## Dev Dependencies
@@ -60,4 +60,4 @@ zero production dependency.
 
 ## TODO
 
-- [ ] update built comment from highest modification date of dependencies, eg. if `a.svelte` depends on `b.js` and `c.js`, the resulting `a.html` html comment should be max modification date of those three 
+- [ ] update built comment from highest modification date of dependencies, eg. if `a.svelte` depends on `b.js` and `_c.svelte`, the resulting `a.html` html comment should be max modification date of those three 
