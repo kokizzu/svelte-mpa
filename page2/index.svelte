@@ -1,5 +1,6 @@
 <script>
 	// should generate page2/index.html from outer _layout.html
+	import Links from '../_components/links.svelte'
 	import Row from '../_components/row.svelte'
 
 	export let list = [/* from_server */] // this comment should not be deleted
@@ -30,3 +31,5 @@
 		</tbody>
 	</table>
 </div>
+
+<Links></Links>

@@ -1,5 +1,6 @@
 <script>
 	// should generate page1/subpage.html from nearest _layout.html
+	import Links from '../_components/links.svelte'
 	export let foo = {/* something */} 
 
 	if (Object.keys(foo).length == 0) {
@@ -11,3 +12,4 @@
 	just random subpage, should generate page1/subpage.html
 	<code>{JSON.stringify(foo)}</code>
 </div>
+<Links></Links>

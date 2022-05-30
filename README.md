@@ -26,7 +26,7 @@ It would automatically generate 3 files: `foo/bar.html`, `subpage/page3.html`, a
 
 1. generate automatically `.html` foreach `.svelte`, for example when running `make gen` or `npm run build`
 2. can import properly other js, css, or svelte file (relative import)
-3. dev mode, eg. `npm run dev`, it would listen to `localhost:portNumber` then livereload when changed like default svelte template project (will also autogenerate the `.html` files like spec number 1)
+3. dev mode, eg. `npm start`, it would listen to `localhost:portNumber` then livereload when changed like default svelte template project (will also autogenerate the `.html` files like spec number 1)
 4. there no configuration, it should work as-is automatically, anything starts with underscore will not generate `.html`, eg. `_component1.svelte`, or `_components/table.svelte`
 5. will look for `_layout.html` in current directory or upper directories as base template
 6. using minimal set of npm dependencies and no outdated package

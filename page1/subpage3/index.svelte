@@ -1,10 +1,10 @@
 <script>
   // should generate page1/subpage3/index.html from outer _layout.html
   import Row from '../../_components/row.svelte';
+  import Button from './_mybutton.svelte'
 
-  export let list = [
-    /* from_server */
-  ]; // this comment should not be deleted
+  export let list = [/* from_server */]; 
+  // this comment ^ should not be deleted
   export let str = '#{from_server2}';
 
   if (!list.length) {
@@ -31,6 +31,7 @@
       {/each}
     </tbody>
   </table>
+	<Button></Button>
 </div>
 
 <style>
