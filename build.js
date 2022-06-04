@@ -125,11 +125,10 @@ function layoutFor(path) {
       ? readFileSync(path, 'utf-8')
       : `<html>
               <head>
-                <title>!/* title */</title>
+                <title>#{title}</title>
               </head>
               <body>
-                <h1>layout for everything else</h1>
-                <main id="ip"></main>
+                <h1>layout not found, please create <b>_layout.html</b></h1>
                 <slot></slot>
               </body>
             </html>
