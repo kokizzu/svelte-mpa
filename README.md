@@ -1,6 +1,6 @@
 # Multipage Svelte, Svelte MPA
 
-The purpose of this project is to make Svelte that defaults to SPA into an statically-generated MPA (multipage SPA). 
+The purpose of this project is to make Svelte that defaults is component-based SPA into an statically-generated MPA (multipage SPA, page+component-based). 
 So for deployment you only need to [rsync](//rsync.samba.org/) the `.html`, `.css`, `.js` and any other non-`.svelte` files. 
 It was originally built for [Z](https://github.com/kokizzu/gotro/tree/master/Z) template engine.
 
