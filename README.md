@@ -46,7 +46,7 @@ cd myproject1
 
 npm install    # install dependencies
 npm start      # start dev-server
-npm run watch  # start dev-server without opening browser
+npm run watch  # start dev-server without server, eg. if you use other webserver or reverse proxy locally
 
 npm run build:prod  # build project for production
 ./deploy.sh         # example deployment script for single server
