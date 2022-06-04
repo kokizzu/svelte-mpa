@@ -44,8 +44,9 @@ npm install -g degit                 # scaffolding helper
 degit kokizzu/svelte-mpa myproject1  # clone this repo with new name
 cd myproject1                        
 
-npm install  # install dependencies
-npm start    # start dev-server
+npm install    # install dependencies
+npm start      # start dev-server
+npm run watch  # start dev-server without opening browser
 
 npm run build:prod  # build project for production
 ./deploy.sh         # example deployment script for single server
