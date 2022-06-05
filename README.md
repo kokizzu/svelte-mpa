@@ -17,11 +17,11 @@ _mycomponent/
   button.svelte
 foo/
   _table.svelte
-  bar.svelte --> will generate 
+  bar.svelte --> will generate bar.html
   any.js
 subpage/
-  page3.svelte --> will generate
-index.svelte --> will generate
+  page3.svelte --> will generate page3.html
+index.svelte --> will generate index.html
 whatever.css
 whatever.js
 _layout.html
