@@ -45,8 +45,8 @@ degit kokizzu/svelte-mpa myproject1  # clone this repo with new name
 cd myproject1                        
 
 npm install    # install dependencies
-npm start      # start dev-server
-npm run watch  # start dev-server without server, eg. if you use other webserver or reverse proxy locally
+npm start      # start dev-server, auto rebuild
+npm run watch  # auto rebuild without webserver, eg. if you use other webserver/reverse proxy locally
 
 npm run build:prod  # build project for production
 ./deploy.sh         # example deployment script for single server
@@ -83,6 +83,7 @@ But you can also use this as SSG.
 ## TODO / Possible Improvement
 
 - [ ] update `<!--BUILD TIME` generated comment from highest modification date of dependencies, eg. if `a.svelte` depends on `b.js` and `_c.svelte`, the resulting `a.html` html comment should be max modification date of those three 
+- [ ] bugfix, need to restart dev server manually if new `.svelte` file created
 - [ ] generate bundled javascript `[name].min.js` foreach `[name].svelte` file that will imported by generated `[name].html`, to reduce overhead when page's bundled reactivity code size is very big, only when svelte file doesn't contain Z-template special keywords, so the code might look like this:
 ```html
 `_layout.html`:
