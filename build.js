@@ -3,7 +3,7 @@ const esbuild = require('esbuild');
 const { readdirSync, statSync, existsSync, writeFileSync, readFileSync } = require('fs');
 const { join, basename, resolve, dirname, relative } = require('path');
 const sveltePlugin = require('esbuild-svelte');
-const { isEqual } = require('lodash');
+const { isEqual, throttle, debounce, sum } = require('lodash');
 const parse5 = require('parse5');
 
 const [watch, serve, minify, debug, logVars] = ['--watch', '--serve', '--minify', '--debug', '--log-vars'].map(s =>
@@ -32,7 +32,7 @@ function findPages(dir = '.', sink = []) {
   }
 
   const files = readdirSync(dir).filter(f => f[0] !== '_');
-  const svelteFiles = files.filter(f => f.endsWith('.svelte'));
+  const svelteFiles = files.filter(f => f.endsWith('.svelte') && statSync(join(dir, f)).isFile());
   svelteFiles.forEach(f => sink.push(join(dir, f)));
 
   files
@@ -244,7 +244,6 @@ function layoutFor(path) {
   let pages = findPages();
   let builder = await createBuilder(pages);
 
-  const listed_files = new Set();
   const compiledFiles = new Set();
   let cache = {};
 
@@ -278,39 +277,47 @@ function layoutFor(path) {
   saveFiles();
   watch && console.log('first build end\n');
 
-  watch &&
-    chokidar
-      .watch('.', { ignored: s => ignorePath.has(s) || ignorePath.has(join('./', s)) })
-      .on('all', async (event, path) => {
-        if (!watcherReady) return void listed_files.add(path);
-        if (compiledFiles.has(resolve(path))) return;
+  if (watch) {
+    const pagesPaths = new Set(pages.map(p => resolve(p)));
 
-        console.log(event + ':', path);
+    let timeRef = null;
+    function changeListener(path, stats, type, watcher) {
+      if (compiledFiles.has(resolve(path))) return;
+      console.log(type + ':', path.replace(__dirname, ''));
 
-        if (path[0] !== '_' && path.endsWith('.svelte') && !listed_files.has(path)) {
-          const pages2 = findPages();
+      const svelteFile = path[0] !== '_' && path.endsWith('.svelte');
 
-          if (!isEqual(pages, pages2)) {
-            cache = {};
-            builder = await createBuilder(pages);
-            saveFiles();
-            return;
-          }
-        }
+      let pagesChanged = true;
+      if (svelteFile && type === 'add') pagesPaths.add(resolve(path));
+      else if (svelteFile && type === 'unlink') pagesPaths.delete(resolve(path));
+      else pagesChanged = false;
 
-        saveFiles(await builder.rebuild());
-      })
+      clearTimeout(timeRef);
+      timeRef = setTimeout(async () => {
+        pagesChanged
+          ? saveFiles((builder = await createBuilder(Array.from(pagesPaths, p => relative(__dirname, p)))))
+          : saveFiles(await builder.rebuild());
+      }, 200);
+    }
+
+    const watcher = chokidar
+      .watch('.', { ignored: s => ignorePath.has(s) || ignorePath.has(join('./', s)), ignoreInitial: true })
+      .on('change', (path, stats) => changeListener(path, stats, 'change', watcher))
+      .on('add', (path, stats) => changeListener(path, stats, 'add', watcher))
+      .on('unlink', (path, stats) => changeListener(path, stats, 'unlink', watcher))
       .on('ready', () => {
-        console.log(`watching ${listed_files.size} files/dirs for changes`);
+        console.log(`watching ${sum(Object.values(watcher.getWatched()).map(t => t.length))} files/dirs for changes`);
         watcherReady = true;
-      });
+      })
+      .on('error', err => console.log('ERROR:', err));
+  }
 
-  const FiveServer = require('five-server').default
+  const FiveServer = require('five-server').default;
   serve &&
-    await (new FiveServer()).start({
+    (await new FiveServer().start({
       open: true,
       workspace: __dirname,
-      ignore: [...ignorePath, '*.js', '*.ts', '*.svelte'].join(','),
+      ignore: [...ignorePath, /\.(js|ts|svelte)$/],
       wait: 500,
-    });
+    }));
 })();
