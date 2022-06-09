@@ -82,7 +82,6 @@ So your existing backend responsibility is to load the generated `.html` then re
 ## TODO / Possible Improvement
 
 - [ ] update `<!--BUILD TIME` generated comment from highest modification date of dependencies, eg. if `a.svelte` depends on `b.js` and `_c.svelte`, the resulting `a.html` html comment should be max modification date of those three 
-- [ ] bugfix, need to restart dev server manually if new `.svelte` file created
 - [ ] generate bundled javascript `[name].min.js` foreach `[name].svelte` file that will imported by generated `[name].html`, to reduce overhead when page's bundled reactivity code size is very big, only when svelte file doesn't contain Z-template special keywords, so the code might look like this:
 ```html
 `_layout.html`:
