@@ -77,8 +77,7 @@ became
 [Browser] --fetch-HTML/API--> [ExistingBackend]
 ```
 
-So your existing backend responsibility is to load the generated `.html` then replace the js variable or any template keyword with proper value for initial load/SEO. 
-But you can also use this as SSG.
+So your existing backend responsibility is to load the generated `.html` then replace the js variable or any template keyword with proper value for initial load/SEO. So not svelte's responsibiity to request/preload the initial json content, but backend's responsiblity (whatever existing backend langauge/framework you are using). Like SvelteKit, you can also use this as SSG.
 
 ## TODO / Possible Improvement
 
