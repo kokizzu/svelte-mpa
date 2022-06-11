@@ -30,10 +30,10 @@ _layout.html
 It would automatically generate 3 files: `foo/bar.html`, `subpage/page3.html`, and `index.html`.
 
 1. generate automatically `.html` foreach `.svelte`, for production build use `npm run build:prod`
-2. can import properly other js, css, or svelte file (relative import)
-3. dev mode, eg. `npm start`, it would listen to `localhost:8080` then livereload when changed like default svelte template project (will also autogenerate the `.html` files like spec number 1)
-4. there no configuration, it should work as-is automatically, anything starts with underscore will not generate `.html`, eg. `_component1.svelte`, or `_components/table.svelte`
-5. will look for `_layout.html` in current directory or nearest upper directories as base template
+2. there no configuration, it should work as-is automatically, anything starts with underscore will not generate `.html`, eg. `_component1.svelte`, or `_components/table.svelte`
+3. will look for `_layout.html` in current directory or nearest upper directories as base template
+4. can import properly other js, css, or svelte file (relative import)
+5. dev mode, eg. `npm start`, it would listen to `localhost:5500` then livereload when changed like default svelte template project (will also autogenerate the `.html` files like spec number 1)
 6. using minimal set of npm dependencies and no outdated package
 7. generated html will not remove comments, especially one that used in [Z](https://github.com/kokizzu/gotro/tree/master/Z) template engine, like: `/*! c1 */`, `#{c2}`, `[/* c3 */]`, or `{/* c4 */}`
 
@@ -46,7 +46,8 @@ cd myproject1
 
 npm install    # install dependencies
 npm start      # start dev-server, auto rebuild
-npm run watch  # auto rebuild without webserver, eg. if you use other webserver/reverse proxy locally
+npm run watch  # auto rebuild without webserver, 
+               # eg. if you use other webserver/reverse proxy locally
 
 npm run build:prod  # build project for production
 ./deploy.sh         # example deployment script for single server
@@ -77,7 +78,7 @@ became
 [Browser] --fetch-HTML/API--> [ExistingBackend]
 ```
 
-So your existing backend responsibility is to load the generated `.html` then replace the js variable or any template keyword with proper value for initial load/SEO. So not svelte's responsibiity to request/preload the initial json content, but backend's responsiblity (whatever existing backend langauge/framework you are using). Like SvelteKit, you can also use this as SSG. You can see example [here](//github.com/kokizzu/sveltefiber)
+So your existing backend responsibility is to load the generated `.html` then replace the js variable or any template keyword with proper value for initial load/SEO. So not svelte's responsibility to request/preload the initial json content, but backend's responsibility (whatever existing backend langauge/framework you are using). Like SvelteKit, you can also use this as SSG. You can see example [here](//github.com/kokizzu/sveltefiber)
 
 ## TODO / Possible Improvement
 
