@@ -77,10 +77,11 @@ became
 [Browser] --fetch-HTML/API--> [ExistingBackend]
 ```
 
-So your existing backend responsibility is to load the generated `.html` then replace the js variable or any template keyword with proper value for initial load/SEO. So not svelte's responsibiity to request/preload the initial json content, but backend's responsiblity (whatever existing backend langauge/framework you are using). Like SvelteKit, you can also use this as SSG.
+So your existing backend responsibility is to load the generated `.html` then replace the js variable or any template keyword with proper value for initial load/SEO. So not svelte's responsibiity to request/preload the initial json content, but backend's responsiblity (whatever existing backend langauge/framework you are using). Like SvelteKit, you can also use this as SSG. You can see example [here](//github.com/kokizzu/sveltefiber)
 
 ## TODO / Possible Improvement
 
+- [ ] bug: doesn't autorecompile when _layout.html changed
 - [ ] update `<!--BUILD TIME` generated comment from highest modification date of dependencies, eg. if `a.svelte` depends on `b.js` and `_c.svelte`, the resulting `a.html` html comment should be max modification date of those three 
 - [ ] generate bundled javascript `[name].min.js` foreach `[name].svelte` file that will imported by generated `[name].html`, to reduce overhead when page's bundled reactivity code size is very big, only when svelte file doesn't contain Z-template special keywords, so the code might look like this:
 ```html
