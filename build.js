@@ -232,7 +232,7 @@ function layoutFor(path) {
     js = zPlaceholderRestore(js, cssVars) || '';
     css = zPlaceholderRestore(css, cssVars) || '';
 
-    comments.data = `BUILD TIME: ${new Date().toISOString()}`;
+    //comments.data = `BUILD TIME: ${new Date().toISOString()}`;
     cssVarsComments.data = cssVars.length ? `--- CSS z-vars --- \n${cssVars.join('\n')}` : '';
     jsVarsComments.data = jsVars.length ? `--- JS z-vars --- \n${jsVars.join('\n')}` : '';
 
