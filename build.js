@@ -1,3 +1,4 @@
+require('svelte/register')
 const chokidar = require('chokidar');
 const esbuild = require('esbuild');
 const {readdirSync, statSync, existsSync, writeFileSync, readFileSync} = require('fs');
@@ -100,7 +101,7 @@ function createBuilder(entryPoints) {
   });
 }
 
-function layoutFor(path) {
+function layoutFor(path, content='') {
   path = (() => {
     let temp = join(path, '..', '_layout.html');
 
@@ -150,6 +151,7 @@ function layoutFor(path) {
 
   if (!body) throw new Error('body not found');
 
+  const appKEY = `${Math.random()}-APP-${Math.random()}`;
   if (slot) {
     slot.nodeName = 'main';
     slot.tagName = 'main';
@@ -158,15 +160,26 @@ function layoutFor(path) {
       {name: 'id', value: 'app'}, 
       ...(slot.attrs || [])?.filter(t => t.name !== 'id')
     ];
+    slot.childNodes=[{nodeName: '#text', value: appKEY}]
   } else {
     body.childNodes.push({
       nodeName: 'main',
       tagName: 'main',
       attrs: [{name: 'id', value: 'app'}],
-      childNodes: [],
+      childNodes: [{nodeName: '#text', value: appKEY}],
       namespaceURI: body.namespaceURI,
     });
   }
+
+  // Remove main content
+  // content showing only for seo friendly
+  body.childNodes.push({
+    nodeName: 'script',
+    tagName: 'script',
+    attrs: [],
+    childNodes: [{nodeName: '#text', value: "document.getElementById('app').innerHTML=''"}],
+    namespaceURI: body.namespaceURI,
+  })
 
   const jsKEY = `${Math.random()}-JS-${Math.random()}`;
   const cssKEY = `${Math.random()}-CSS-${Math.random()}`;
@@ -236,7 +249,7 @@ function layoutFor(path) {
     cssVarsComments.data = cssVars.length ? `--- CSS z-vars --- \n${cssVars.join('\n')}` : '';
     jsVarsComments.data = jsVars.length ? `--- JS z-vars --- \n${jsVars.join('\n')}` : '';
 
-    return parse5.serialize(tree).replace(cssKEY, css).replace(jsKEY, js);
+    return parse5.serialize(tree).replace(cssKEY, css).replace(jsKEY, js).replace(appKEY, content);
   });
 }
 
@@ -268,7 +281,8 @@ function layoutFor(path) {
     if (Object.keys(output).length === 0) return console.log('no changes');
 
     Object.entries(output).forEach(([path, data]) => {
-      const content = layoutFor(path)(data);
+      let content = require(path+'.svelte').default.render().html
+      content = layoutFor(path,content)(data);
 
       path = resolve(path + '.html');
       compiledFiles.add(path);
