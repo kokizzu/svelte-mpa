@@ -71,13 +71,13 @@ zero production dependency.
 If you already have existing backend that wasn't written in NodeJS, you can have best of two worlds, multiple page with their own meta headers and content for SEO, and reactivity using Svelte for each page. Also with this you can remove the serialization/transport/hop-cost of default setup:
 
 ```
-for first request:
+so for first request:
 
 [Browser] --fetch-HTML--> [SvelteKit/Next/Nuxt/other-SSR] --fetch-API--> [ExistingBackend]
 
 or 
 
-[Browser] --fetch-HTML--> [SvelteKit-static-adapter] (fetch the HTML first without data)
+[Browser] --fetch-HTML--> [SvelteKit-static-adapter/generated-HTML] (fetch the HTML first without data)
 [Browser] --fetch-API--> [Backend] (fetch the JSON to populate data, then rerender)
 
 became
