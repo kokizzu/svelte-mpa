@@ -64,7 +64,7 @@ npm run build:prod  # build project for production
 - [parse5](//github.com/inikulin/parse5) - html parsing/serialization toolset for node.js
 - [svelte-preprocess](//github.com/sveltejs/svelte-preprocess) - a svelte preprocessor with sensible defaults and support for: postcss, scss, less, stylus, coffeescript, typescript, pug and much more.
 
-zero production dependency.
+**ZERO** production dependency.
 
 ## Why? Motivation
 
