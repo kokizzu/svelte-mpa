@@ -64,18 +64,25 @@ npm run build:prod  # build project for production
 - [parse5](//github.com/inikulin/parse5) - html parsing/serialization toolset for node.js
 - [svelte-preprocess](//github.com/sveltejs/svelte-preprocess) - a svelte preprocessor with sensible defaults and support for: postcss, scss, less, stylus, coffeescript, typescript, pug and much more.
 
-zero production dependency.
+**ZERO** production dependency.
 
 ## Why? Motivation
 
-If you already have existing backend that wasn't written in NodeJS, you can have best of two worlds, multiple page with their own meta headers and content for SEO, and reactivity using Svelte for each page. Also with this you can remove the serialization/transport/hop-cost of default setup:
+If you already have existing backend that wasn't written in NodeJS, you can have best of two worlds, multiple page with their own [meta headers](//svelte.dev/repl/ffd783c9b8e54d97b6b7cac6eadace42?version=3.52.0) and content for SEO, and reactivity using Svelte for each page. Also with this you can remove the serialization/transport/hop-cost of default setup:
 
 ```
-[Browser] --fetch-HTML--> [SvelteKit/Next/Nuxt/etc] --fetch-API--> [ExistingBackend]
+so for first request normally would be something like this:
 
-became
+[Browser] --fetch-HTML--> [SvelteKit/Next/Nuxt/other-SSR] --fetch-API--> [ExistingBackend]
 
-[Browser] --fetch-HTML/API--> [ExistingBackend]
+or like this:
+
+[Browser] --fetch-HTML--> [SvelteKit-static-adapter/generated-HTML] (fetch the HTML first without data)
+[Browser] --fetch-API--> [Backend] (fetch the JSON to populate data, then rerender)
+
+became:
+
+[Browser] --fetch-HTML+API--> [ExistingBackend] (only need 1 request)
 ```
 
 So your existing backend responsibility is to load the generated `.html` then replace the js variable or any template keyword with proper value for initial load/SEO. So not svelte's responsibility to request/preload the initial json content, but backend's responsibility (whatever existing backend langauge/framework you are using). Like SvelteKit, you can also use this as SSG. You can see example [here](//github.com/kokizzu/sveltefiber)
