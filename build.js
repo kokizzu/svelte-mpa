@@ -101,7 +101,7 @@ function createBuilder(entryPoints) {
   });
 }
 
-function layoutFor(path, content='') {
+function layoutFor(path, content={}) {
   path = (() => {
     let temp = join(path, '..', '_layout.html');
 
@@ -238,18 +238,22 @@ function layoutFor(path, content='') {
   ];
 
   debug && console.log('build layout for:', path || defaultKey);
-
+  
   return (layoutFor.cache[path || defaultKey] = ({js, css}) => {
     const cssVars = [],
       jsVars = [];
-    js = zPlaceholderRestore(js, cssVars) || '';
+    js = zPlaceholderRestore(js, jsVars) || '';
     css = zPlaceholderRestore(css, cssVars) || '';
 
     //comments.data = `BUILD TIME: ${new Date().toISOString()}`;
     cssVarsComments.data = cssVars.length ? `--- CSS z-vars --- \n${cssVars.join('\n')}` : '';
     jsVarsComments.data = jsVars.length ? `--- JS z-vars --- \n${jsVars.join('\n')}` : '';
+    
+    let html = content.html || '';
+    const innerCss = (content.css || {}).code || '';
+    console.log(content)
 
-    return parse5.serialize(tree).replace(cssKEY, css).replace(jsKEY, js).replace(appKEY, content);
+    return parse5.serialize(tree).replace(cssKEY, css + innerCss).replace(jsKEY, js).replace(appKEY, html);
   });
 }
 
@@ -281,8 +285,9 @@ function layoutFor(path, content='') {
     if (Object.keys(output).length === 0) return console.log('no changes');
 
     Object.entries(output).forEach(([path, data]) => {
-      let content = require(path+'.svelte').default.render().html
-      content = layoutFor(path,content)(data);
+      const renderedSvelte = require(path+'.svelte').default.render()
+      
+      const content = layoutFor(path,renderedSvelte)(data);
 
       path = resolve(path + '.html');
       compiledFiles.add(path);
