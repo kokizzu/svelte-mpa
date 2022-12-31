@@ -86,7 +86,6 @@
   
   function setLastError( err ) {
     lastError = err
-    console.log(err)
     return err;
   }
 

@@ -291,7 +291,6 @@ function layoutFor(path, content={}) {
 
       path = resolve(path + '.html');
       compiledFiles.add(path);
-      console.log('compiled:', relative(resolve(__dirname), path));
       writeFileSync(path, content);
     });
   }
