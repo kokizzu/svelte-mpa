@@ -26,8 +26,5 @@
     "trailingComma": "es5",
     "printWidth": 120,
     "arrowParens": "avoid"
-  },
-  "dependencies": {
-    "axios": "^1.2.2"
   }
 }
