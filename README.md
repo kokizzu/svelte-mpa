@@ -53,6 +53,10 @@ npm run build:prod  # build project for production
 ./deploy.sh         # example deployment script for single server
 ```
 
+## How to update/upgrade from previous version?
+
+just copy latest `build.js` to your project directory.
+
 ## Dev Dependencies
 
 - [svelte](//svelte.dev/) - cybernetically enhanced web apps
