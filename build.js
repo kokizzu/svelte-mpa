@@ -251,7 +251,6 @@ function layoutFor(path, content={}) {
     
     let html = content.html || '';
     const innerCss = (content.css || {}).code || '';
-    console.log(content)
 
     return parse5.serialize(tree).replace(cssKEY, css + innerCss).replace(jsKEY, js).replace(appKEY, html);
   });
