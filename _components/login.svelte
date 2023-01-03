@@ -1,4 +1,5 @@
 <form on:submit|preventDefault={handleSubmit} name="loginRegister">
+	<Logo></Logo>
 	
 	{#if isLoading}
 		Submitting..
@@ -37,6 +38,7 @@
 </form>
 
 <script>
+  import Logo from './logo.svelte'
   export let user;
   
   // enums
@@ -80,6 +82,7 @@
       let data = resp.data || {};
       if( !setLastError( data.error || '' ) && mode===LOGIN ) {
         user = data.user
+        console.log(user)
       }
     } ).catch( setLastError )
   }

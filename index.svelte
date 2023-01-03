@@ -1,6 +1,7 @@
 <script>
 	// should generate index.html
 	import Login from './_components/login.svelte'
+	import Logo from './_components/logo.svelte'
 
 	let user = {/* user */} || {}
 </script>
@@ -10,6 +11,7 @@
 </div>
 
 {#if !user || !user.Id}
+	<Logo></Logo>
 	<Login bind:user={user}></Login>
 {:else}
 	logged in as {JSON.stringify(user)}

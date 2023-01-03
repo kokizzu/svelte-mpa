@@ -31,7 +31,20 @@
 
 <main id="app"><div style="display: flex; align-items: center;"><h1 style="margin-left: 10px; font-family: sans-serif; color: #4CAF50; font-size: 1.5em;">Dummy Demo</h1></div>
 
-<form name="loginRegister" class="svelte-1da9sh8"><label for="email" class="svelte-1da9sh8">Email:</label>
+<div><h1>Logo 1</h1></div>
+
+<ul><li class="svelte-ahr6i5">A</li>
+	<li class="svelte-ahr6i5">B</li>
+	<li class="svelte-ahr6i5">C</li>
+</ul>
+	<form name="loginRegister" class="svelte-1da9sh8"><div><h1>Logo 1</h1></div>
+
+<ul><li class="svelte-ahr6i5">A</li>
+	<li class="svelte-ahr6i5">B</li>
+	<li class="svelte-ahr6i5">C</li>
+</ul>
+	
+	<label for="email" class="svelte-1da9sh8">Email:</label>
 		<input type="email" name="email" id="email" class="svelte-1da9sh8" value="">
 		<br>
 		<label for="password" class="svelte-1da9sh8">Password:</label>
@@ -49,7 +62,8 @@
 </form></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>form.svelte-1da9sh8.svelte-1da9sh8{width:500px;margin:0 auto;text-align:center;font-family:sans-serif}form.svelte-1da9sh8 label.svelte-1da9sh8{display:block;margin-bottom:0.5em;font-weight:bold;font-size:1.2em;text-align:left}form.svelte-1da9sh8 input[type="email"].svelte-1da9sh8,form.svelte-1da9sh8 input[type="password"].svelte-1da9sh8{width:100%;padding:0.2em;border:1px solid #CCC;border-radius:4px;box-sizing:border-box;font-size:1em;margin-bottom:1em}form.svelte-1da9sh8 input.svelte-1da9sh8:focus{border:1px solid #4CAF50}form.svelte-1da9sh8 button.svelte-1da9sh8{background-color:#4CAF50;color:white;padding:0.2em 0.5em;border:none;border-radius:4px;cursor:pointer;font-size:1em}form.svelte-1da9sh8 button.svelte-1da9sh8:hover{background-color:#45A049}form.svelte-1da9sh8 .error.svelte-1da9sh8{color:red;font-size:0.8em}form.svelte-1da9sh8 span.link.svelte-1da9sh8{text-decoration:underline;color:blue;cursor:pointer}</style>
+<style>li.svelte-ahr6i5{display:block;float:right;border:1px solid blue;padding:2px;margin:2px}
+form.svelte-1da9sh8.svelte-1da9sh8{width:500px;margin:0 auto;text-align:center;font-family:sans-serif}form.svelte-1da9sh8 label.svelte-1da9sh8{display:block;margin-bottom:0.5em;font-weight:bold;font-size:1.2em;text-align:left}form.svelte-1da9sh8 input[type="email"].svelte-1da9sh8,form.svelte-1da9sh8 input[type="password"].svelte-1da9sh8{width:100%;padding:0.2em;border:1px solid #CCC;border-radius:4px;box-sizing:border-box;font-size:1em;margin-bottom:1em}form.svelte-1da9sh8 input.svelte-1da9sh8:focus{border:1px solid #4CAF50}form.svelte-1da9sh8 button.svelte-1da9sh8{background-color:#4CAF50;color:white;padding:0.2em 0.5em;border:none;border-radius:4px;cursor:pointer;font-size:1em}form.svelte-1da9sh8 button.svelte-1da9sh8:hover{background-color:#45A049}form.svelte-1da9sh8 .error.svelte-1da9sh8{color:red;font-size:0.8em}form.svelte-1da9sh8 span.link.svelte-1da9sh8{text-decoration:underline;color:blue;cursor:pointer}</style>
 <script>(() => {
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __commonJS = (cb, mod) => function __require() {
@@ -269,9 +283,12 @@
       };
       var isHTMLForm = kindOfTest("HTMLFormElement");
       var toCamelCase = (str) => {
-        return str.toLowerCase().replace(/[_-\s]([a-z\d])(\w*)/g, function replacer(m, p1, p2) {
-          return p1.toUpperCase() + p2;
-        });
+        return str.toLowerCase().replace(
+          /[_-\s]([a-z\d])(\w*)/g,
+          function replacer(m, p1, p2) {
+            return p1.toUpperCase() + p2;
+          }
+        );
       };
       var hasOwnProperty = (({ hasOwnProperty: hasOwnProperty2 }) => (obj, prop) => hasOwnProperty2.call(obj, prop))(Object.prototype);
       var isRegExp = kindOfTest("RegExp");
@@ -524,7 +541,10 @@
             } else if (utils.isArray(value) && isFlatArray(value) || (utils.isFileList(value) || utils.endsWith(key, "[]") && (arr = utils.toArray(value)))) {
               key = removeBrackets(key);
               arr.forEach(function each(el, index) {
-                !(utils.isUndefined(el) || el === null) && formData.append(indexes === true ? renderKey([key], index, dots) : indexes === null ? key : key + "[]", convertValue(el));
+                !(utils.isUndefined(el) || el === null) && formData.append(
+                  indexes === true ? renderKey([key], index, dots) : indexes === null ? key : key + "[]",
+                  convertValue(el)
+                );
               });
               return false;
             }
@@ -549,7 +569,13 @@
           }
           stack.push(value);
           utils.forEach(value, function each(el, key) {
-            const result = !(utils.isUndefined(el) || el === null) && visitor.call(formData, el, utils.isString(key) ? key.trim() : key, path, exposedHelpers);
+            const result = !(utils.isUndefined(el) || el === null) && visitor.call(
+              formData,
+              el,
+              utils.isString(key) ? key.trim() : key,
+              path,
+              exposedHelpers
+            );
             if (result === true) {
               build(el, path ? path.concat(key) : [key]);
             }
@@ -786,7 +812,11 @@
             }
             if ((isFileList2 = utils.isFileList(data)) || contentType.indexOf("multipart/form-data") > -1) {
               const _FormData = this.env && this.env.FormData;
-              return toFormData(isFileList2 ? { "files[]": data } : data, _FormData && new _FormData(), this.formSerializer);
+              return toFormData(
+                isFileList2 ? { "files[]": data } : data,
+                _FormData && new _FormData(),
+                this.formSerializer
+              );
             }
           }
           if (isObjectPayload || hasJSONContentType) {
@@ -1107,7 +1137,13 @@
         if (!response.status || !validateStatus || validateStatus(response.status)) {
           resolve(response);
         } else {
-          reject(new AxiosError("Request failed with status code " + response.status, [AxiosError.ERR_BAD_REQUEST, AxiosError.ERR_BAD_RESPONSE][Math.floor(response.status / 100) - 4], response.config, response.request, response));
+          reject(new AxiosError(
+            "Request failed with status code " + response.status,
+            [AxiosError.ERR_BAD_REQUEST, AxiosError.ERR_BAD_RESPONSE][Math.floor(response.status / 100) - 4],
+            response.config,
+            response.request,
+            response
+          ));
         }
       }
       var cookies = platform.isStandardBrowserEnv ? function standardBrowserEnv() {
@@ -1283,7 +1319,9 @@
             if (!request) {
               return;
             }
-            const responseHeaders = AxiosHeaders$1.from("getAllResponseHeaders" in request && request.getAllResponseHeaders());
+            const responseHeaders = AxiosHeaders$1.from(
+              "getAllResponseHeaders" in request && request.getAllResponseHeaders()
+            );
             const responseData = !responseType || responseType === "text" || responseType === "json" ? request.responseText : request.response;
             const response = {
               data: responseData,
@@ -1332,7 +1370,12 @@
             if (config.timeoutErrorMessage) {
               timeoutErrorMessage = config.timeoutErrorMessage;
             }
-            reject(new AxiosError(timeoutErrorMessage, transitional.clarifyTimeoutError ? AxiosError.ETIMEDOUT : AxiosError.ECONNABORTED, config, request));
+            reject(new AxiosError(
+              timeoutErrorMessage,
+              transitional.clarifyTimeoutError ? AxiosError.ETIMEDOUT : AxiosError.ECONNABORTED,
+              config,
+              request
+            ));
             request = null;
           };
           if (platform.isStandardBrowserEnv) {
@@ -1408,9 +1451,14 @@
           }
           if (!adapter) {
             if (adapter === false) {
-              throw new AxiosError(`Adapter ${nameOrAdapter} is not supported by the environment`, "ERR_NOT_SUPPORT");
+              throw new AxiosError(
+                `Adapter ${nameOrAdapter} is not supported by the environment`,
+                "ERR_NOT_SUPPORT"
+              );
             }
-            throw new Error(utils.hasOwnProp(knownAdapters, nameOrAdapter) ? `Adapter '${nameOrAdapter}' is not available in the build` : `Unknown adapter '${nameOrAdapter}'`);
+            throw new Error(
+              utils.hasOwnProp(knownAdapters, nameOrAdapter) ? `Adapter '${nameOrAdapter}' is not available in the build` : `Unknown adapter '${nameOrAdapter}'`
+            );
           }
           if (!utils.isFunction(adapter)) {
             throw new TypeError("adapter is not a function");
@@ -1430,21 +1478,32 @@
       function dispatchRequest(config) {
         throwIfCancellationRequested(config);
         config.headers = AxiosHeaders$1.from(config.headers);
-        config.data = transformData.call(config, config.transformRequest);
+        config.data = transformData.call(
+          config,
+          config.transformRequest
+        );
         if (["post", "put", "patch"].indexOf(config.method) !== -1) {
           config.headers.setContentType("application/x-www-form-urlencoded", false);
         }
         const adapter = adapters.getAdapter(config.adapter || defaults$1.adapter);
         return adapter(config).then(function onAdapterResolution(response) {
           throwIfCancellationRequested(config);
-          response.data = transformData.call(config, config.transformResponse, response);
+          response.data = transformData.call(
+            config,
+            config.transformResponse,
+            response
+          );
           response.headers = AxiosHeaders$1.from(response.headers);
           return response;
         }, function onAdapterRejection(reason) {
           if (!isCancel(reason)) {
             throwIfCancellationRequested(config);
             if (reason && reason.response) {
-              reason.response.data = transformData.call(config, config.transformResponse, reason.response);
+              reason.response.data = transformData.call(
+                config,
+                config.transformResponse,
+                reason.response
+              );
               reason.response.headers = AxiosHeaders$1.from(reason.response.headers);
             }
           }
@@ -1542,11 +1601,19 @@
         }
         return (value, opt, opts) => {
           if (validator2 === false) {
-            throw new AxiosError(formatMessage(opt, " has been removed" + (version ? " in " + version : "")), AxiosError.ERR_DEPRECATED);
+            throw new AxiosError(
+              formatMessage(opt, " has been removed" + (version ? " in " + version : "")),
+              AxiosError.ERR_DEPRECATED
+            );
           }
           if (version && !deprecatedWarnings[opt]) {
             deprecatedWarnings[opt] = true;
-            console.warn(formatMessage(opt, " has been deprecated since v" + version + " and will be removed in the near future"));
+            console.warn(
+              formatMessage(
+                opt,
+                " has been deprecated since v" + version + " and will be removed in the near future"
+              )
+            );
           }
           return validator2 ? validator2(value, opt, opts) : true;
         };
@@ -1610,10 +1677,16 @@
           }
           config.method = (config.method || this.defaults.method || "get").toLowerCase();
           let contextHeaders;
-          contextHeaders = headers && utils.merge(headers.common, headers[config.method]);
-          contextHeaders && utils.forEach(["delete", "get", "head", "post", "put", "patch", "common"], (method) => {
-            delete headers[method];
-          });
+          contextHeaders = headers && utils.merge(
+            headers.common,
+            headers[config.method]
+          );
+          contextHeaders && utils.forEach(
+            ["delete", "get", "head", "post", "put", "patch", "common"],
+            (method) => {
+              delete headers[method];
+            }
+          );
           config.headers = AxiosHeaders$1.concat(contextHeaders, headers);
           const requestInterceptorChain = [];
           let synchronousRequestInterceptors = true;
@@ -1853,13 +1926,13 @@
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance3 = bind2(Axios$1.prototype.request, context);
-        utils.extend(instance3, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance3, context, null, { allOwnKeys: true });
-        instance3.create = function create(instanceConfig) {
+        const instance4 = bind2(Axios$1.prototype.request, context);
+        utils.extend(instance4, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance4, context, null, { allOwnKeys: true });
+        instance4.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance3;
+        return instance4;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2118,7 +2191,7 @@
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance3, create_fragment3, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance4, create_fragment4, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -2141,7 +2214,7 @@
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance3 ? instance3(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance4 ? instance4(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -2154,7 +2227,7 @@
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment3 ? create_fragment3($.ctx) : false;
+    $.fragment = create_fragment4 ? create_fragment4($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -2242,6 +2315,57 @@
       }
     }
   };
+
+  // _components/logo.svelte
+  function create_fragment(ctx) {
+    let div;
+    let t1;
+    let ul;
+    return {
+      c() {
+        div = element("div");
+        div.innerHTML = `<h1>Logo 1</h1>`;
+        t1 = space();
+        ul = element("ul");
+        ul.innerHTML = `<li class="svelte-ahr6i5">A</li> 
+	<li class="svelte-ahr6i5">B</li> 
+	<li class="svelte-ahr6i5">C test</li>`;
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        insert(target, t1, anchor);
+        insert(target, ul, anchor);
+      },
+      p: noop,
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching)
+          detach(div);
+        if (detaching)
+          detach(t1);
+        if (detaching)
+          detach(ul);
+      }
+    };
+  }
+  function instance($self, $props, $invalidate) {
+    let test = 123;
+    $self.$.update = () => {
+      if ($self.$.dirty & 1) {
+        $:
+          console.log($invalidate(0, ++test));
+      }
+    };
+    return [test];
+  }
+  var Logo = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance, create_fragment, safe_not_equal, {});
+    }
+  };
+  var logo_default = Logo;
 
   // _components/login.svelte
   function create_else_block(ctx) {
@@ -2712,10 +2836,14 @@
       }
     };
   }
-  function create_fragment(ctx) {
+  function create_fragment2(ctx) {
     let form;
+    let logo;
+    let t;
+    let current;
     let mounted;
     let dispose;
+    logo = new logo_default({});
     function select_block_type(ctx2, dirty) {
       if (isLoading)
         return create_if_block;
@@ -2726,13 +2854,18 @@
     return {
       c() {
         form = element("form");
+        create_component(logo.$.fragment);
+        t = space();
         if_block.c();
         attr(form, "name", "loginRegister");
         attr(form, "class", "svelte-1da9sh8");
       },
       m(target, anchor) {
         insert(target, form, anchor);
+        mount_component(logo, form, null);
+        append(form, t);
         if_block.m(form, null);
+        current = true;
         if (!mounted) {
           dispose = listen(form, "submit", prevent_default(ctx[5]));
           mounted = true;
@@ -2741,11 +2874,20 @@
       p(ctx2, [dirty]) {
         if_block.p(ctx2, dirty);
       },
-      i: noop,
-      o: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(logo.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(logo.$.fragment, local);
+        current = false;
+      },
       d(detaching) {
         if (detaching)
           detach(form);
+        destroy_component(logo);
         if_block.d();
         mounted = false;
         dispose();
@@ -2756,7 +2898,7 @@
   var REGISTER = "Register";
   var FORGOT = "Forgot Password";
   var isLoading = false;
-  function instance($self, $props, $invalidate) {
+  function instance2($self, $props, $invalidate) {
     let { user } = $props;
     let mode = LOGIN;
     let lastError = "";
@@ -2784,6 +2926,7 @@
         let data2 = resp.data || {};
         if (!setLastError(data2.error || "") && mode === LOGIN) {
           $invalidate(6, user = data2.user);
+          console.log(user);
         }
       }).catch(setLastError);
     }
@@ -2829,7 +2972,7 @@
   var Login = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance, create_fragment, safe_not_equal, { user: 6 });
+      init(this, options, instance2, create_fragment2, safe_not_equal, { user: 6 });
     }
   };
   var login_default = Login;
@@ -2863,9 +3006,12 @@
     };
   }
   function create_if_block2(ctx) {
+    let logo;
+    let t;
     let login;
     let updating_user;
     let current;
+    logo = new logo_default({});
     function login_user_binding(value) {
       ctx[1](value);
     }
@@ -2877,9 +3023,13 @@
     binding_callbacks.push(() => bind(login, "user", login_user_binding, ctx[0]));
     return {
       c() {
+        create_component(logo.$.fragment);
+        t = space();
         create_component(login.$.fragment);
       },
       m(target, anchor) {
+        mount_component(logo, target, anchor);
+        insert(target, t, anchor);
         mount_component(login, target, anchor);
         current = true;
       },
@@ -2895,19 +3045,24 @@
       i(local) {
         if (current)
           return;
+        transition_in(logo.$.fragment, local);
         transition_in(login.$.fragment, local);
         current = true;
       },
       o(local) {
+        transition_out(logo.$.fragment, local);
         transition_out(login.$.fragment, local);
         current = false;
       },
       d(detaching) {
+        destroy_component(logo, detaching);
+        if (detaching)
+          detach(t);
         destroy_component(login, detaching);
       }
     };
   }
-  function create_fragment2(ctx) {
+  function create_fragment3(ctx) {
     let div;
     let t1;
     let current_block_type_index;
@@ -2983,7 +3138,7 @@
       }
     };
   }
-  function instance2($self, $props, $invalidate) {
+  function instance3($self, $props, $invalidate) {
     let user = {/* user */};
     function login_user_binding(value) {
       user = value;
@@ -2994,7 +3149,7 @@
   var Index = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance2, create_fragment2, safe_not_equal, {});
+      init(this, options, instance3, create_fragment3, safe_not_equal, {});
     }
   };
   var svelte_mpa_default = Index;
