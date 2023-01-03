@@ -8,6 +8,13 @@ Creator: [sameerveda](//github.com/sameerveda)
 
 Specs/sponsored by: [kokizzu](//github.com/kokizzu)
 
+## Changelog
+
+- 2022-12-31 bugfix: component css not outputted after editing
+- 2022-09-12 feat: render on first load for SEO
+- 2022-07-07 bugfix: watcher not capturing added/deleted files, feat: optimized watch list
+- 2022-05-30 initial version
+
 ## Specification
 
 For example you have a project with specific structure:
@@ -52,6 +59,10 @@ npm run watch  # auto rebuild without webserver,
 npm run build:prod  # build project for production
 ./deploy.sh         # example deployment script for single server
 ```
+
+## How to update/upgrade from previous version?
+
+just copy latest `build.js` to your project directory.
 
 ## Dev Dependencies
 
