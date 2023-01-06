@@ -101,7 +101,7 @@ function createBuilder(entryPoints) {
   });
 }
 
-function layoutFor(path, content={}) {
+function layoutFor(path, content = {}) {
   path = (() => {
     let temp = join(path, '..', '_layout.html');
 
@@ -125,7 +125,8 @@ function layoutFor(path, content={}) {
   const tree = parse5.parse(
     path
       ? readFileSync(path, 'utf-8')
-      : `<html>
+      : `<!DOCTYPE html>
+<html>
   <head>
     <title>#{title}</title>
   </head>
@@ -157,10 +158,10 @@ function layoutFor(path, content={}) {
     slot.tagName = 'main';
     delete slot.data;
     slot.attrs = [
-      {name: 'id', value: 'app'}, 
+      {name: 'id', value: 'app'},
       ...(slot.attrs || [])?.filter(t => t.name !== 'id')
     ];
-    slot.childNodes=[{nodeName: '#text', value: appKEY}]
+    slot.childNodes = [{nodeName: '#text', value: appKEY}]
   } else {
     body.childNodes.push({
       nodeName: 'main',
@@ -238,7 +239,7 @@ function layoutFor(path, content={}) {
   ];
 
   debug && console.log('build layout for:', path || defaultKey);
-  
+
   return (layoutFor.cache[path || defaultKey] = ({js, css}) => {
     const cssVars = [],
       jsVars = [];
@@ -248,10 +249,9 @@ function layoutFor(path, content={}) {
     //comments.data = `BUILD TIME: ${new Date().toISOString()}`;
     cssVarsComments.data = cssVars.length ? `--- CSS z-vars --- \n${cssVars.join('\n')}` : '';
     jsVarsComments.data = jsVars.length ? `--- JS z-vars --- \n${jsVars.join('\n')}` : '';
-    
+
     let html = content.html || '';
     const innerCss = (content.css || {}).code || '';
-    console.log(content)
 
     return parse5.serialize(tree).replace(cssKEY, css + innerCss).replace(jsKEY, js).replace(appKEY, html);
   });
@@ -269,28 +269,39 @@ function layoutFor(path, content={}) {
 
   function saveFiles(files = builder, layoutChanged = false) {
     const output = {};
+    let unchanged = 0;
+    // path = bla.svelte.js or bla.svelte.css
     for (const {path, text} of files.outputFiles) {
-      if (cache[path] === text && !layoutChanged) continue;
-      cache[path] = text;
-
-      const key = path.replace(/\.svelte\.\w+$/, '');
-      output[key] = output[key] || {};
-
       const ext = /\.(\w+)$/.exec(path)?.[1];
       if (ext !== 'css' && ext !== 'js') throw new Error('unknown ext:' + ext);
 
-      output[key][ext] = text;
+      // bla.js or bla.css
+      const key = path.replace(/\.svelte\.\w+$/, '');
+
+      output[key] = output[key] || {};
+      output[key][ext] = text
+
+      if (cache[path] === text && !layoutChanged) {
+        unchanged += 1;
+        continue;
+      }
+      cache[path] = text;
     }
+
+    // do nothing if nothing's changed
+    if (unchanged === files.outputFiles.length) return;
 
     if (Object.keys(output).length === 0) return console.log('no changes');
 
+    // for each .html files need to be generated
     Object.entries(output).forEach(([path, data]) => {
-      const renderedSvelte = require(path+'.svelte').default.render()
-      
-      const content = layoutFor(path,renderedSvelte)(data);
+      const renderedSvelte = require(path + '.svelte').default.render()
+
+      const content = layoutFor(path, renderedSvelte)(data);
 
       path = resolve(path + '.html');
       compiledFiles.add(path);
+      console.log('compiled:', relative(resolve(__dirname), path));
       writeFileSync(path, content);
     });
   }
@@ -315,7 +326,7 @@ function layoutFor(path, content={}) {
       else pagesChanged = false;
 
       let layoutChanged = path.endsWith('_layout.html');
-      
+
       if (timeRef) clearTimeout(timeRef);
       timeRef = setTimeout(async () => {
         pagesChanged

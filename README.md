@@ -10,10 +10,11 @@ Specs/sponsored by: [kokizzu](//github.com/kokizzu)
 
 ## Changelog
 
-- 2022-12-31 bugfix: component css not outputted after editing
-- 2022-09-12 feat: render on first load for SEO
-- 2022-07-07 bugfix: watcher not capturing added/deleted files, feat: optimized watch list
-- 2022-05-30 initial version
+- `2023-01-07` bugfix: nested component css not outputted after editing
+- `2022-12-31` bugfix: component css not outputted after editing
+- `2022-09-12` feat: render on first load for SEO
+- `2022-07-07` bugfix: watcher not capturing added/deleted files, feat: optimized watch list
+- `2022-05-30` initial version
 
 ## Specification
 
