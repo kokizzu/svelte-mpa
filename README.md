@@ -1,12 +1,21 @@
 # Multipage Svelte, Svelte MPA
 
-The purpose of this project is to make Svelte that defaults is component-based SPA into an statically-generated MPA (multipage SPA, page+component-based). 
+The purpose of this project is to make [Svelte](//svelte.dev/) that defaults is component-based SPA into an statically-generated MPA (multipage SPA, page+component-based). 
 So for deployment you only need to [rsync](//rsync.samba.org/) the `.html`, `.css`, `.js` and any other non-`.svelte` files. 
 It was originally built for [Z](https://github.com/kokizzu/gotro/tree/master/Z) template engine.
 
 Creator: [sameerveda](//github.com/sameerveda)
 
 Specs/sponsored by: [kokizzu](//github.com/kokizzu)
+
+## Why Svelte?
+
+[Rethinking Reactivity](//www.youtube.com/watch?v=AdNJ3fydeao)
+`tl;dw`
+- Svelte is just normal html with automatic reactivity (every assignment with efficiently update the dependent element on next render tick), so very shallow learning curve, if you already know basic of javascript+html+css, you already can use Svelte
+- Component-based, each `.svelte` file is will became html element
+- No JSX, so you can just copy paste any html and it should work without have to convert it
+- compiled, so most likely you can detect problems before running it
 
 ## Changelog
 
@@ -78,7 +87,7 @@ just copy latest `build.js` to your project directory.
 
 **ZERO** production dependency.
 
-## Why? Motivation
+## Why Svelte-MPA? Motivation
 
 If you already have existing backend that wasn't written in NodeJS, you can have best of two worlds, multiple page with their own [meta headers](//svelte.dev/repl/ffd783c9b8e54d97b6b7cac6eadace42?version=3.52.0) and content for SEO, and reactivity using Svelte for each page. Also with this you can remove the serialization/transport/hop-cost of default setup:
 
