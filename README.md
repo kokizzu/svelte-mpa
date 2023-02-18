@@ -12,7 +12,7 @@ Specs/sponsored by: [kokizzu](//github.com/kokizzu)
 
 [Rethinking Reactivity](//www.youtube.com/watch?v=AdNJ3fydeao)
 `tl;dw`
-- Svelte is just normal html with automatic reactivity (every assignment with efficiently update the dependent element on next render tick), so very shallow learning curve, if you already know basic of javascript+html+css, you already can use Svelte
+- Svelte is just normal html with automatic reactivity (every assignment will efficiently update the dependent element on next render tick), so very shallow learning curve, if you already know basic of javascript+html+css, you already can use Svelte
 - Component-based, each `.svelte` file is will became html element
 - No JSX, so you can just copy paste any html and it should work without have to convert it
 - compiled, so most likely you can detect problems before running it
