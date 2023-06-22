@@ -10,6 +10,7 @@ module.exports = {
     {
       style: contentReplacer,
       script: contentReplacer,
+      markup: contentReplacer,
     },
   ],
   cache: false,
