@@ -19,6 +19,7 @@ Specs/sponsored by: [kokizzu](//github.com/kokizzu)
 
 ## Changelog
 
+- `2023-06-23` feat: upgrade to svelte-4
 - `2023-01-07` bugfix: nested component css not outputted after editing
 - `2022-12-31` bugfix: component css not outputted after editing
 - `2022-09-12` feat: render on first load for SEO
