@@ -48,11 +48,11 @@ _layout.html
 It would automatically generate 3 files: `foo/bar.html`, `subpage/page3.html`, and `index.html`.
 
 1. generate automatically `.html` foreach `.svelte`, for production build use `npm run build:prod`
-2. there no configuration, it should work as-is automatically, anything starts with underscore will not generate `.html`, eg. `_component1.svelte`, or `_components/table.svelte`
+2. there no configuration, it should work as-is automatically, anything starts with underscore will not generate `.html`, eg. `foo/_component1.svelte`, or `_components/table.svelte`
 3. will look for `_layout.html` in current directory or nearest upper directories as base template
 4. can import properly other js, css, or svelte file (relative import)
-5. dev mode, eg. `npm start`, it would listen to `localhost:5500` then livereload when changed like default svelte template project (will also autogenerate the `.html` files like spec number 1)
-6. using minimal set of npm dependencies and no outdated package
+5. dev mode, eg. `npm run dev`, it would listen to `localhost:5500` then livereload when changed like default svelte template project (will also autogenerate the `.html` files like spec number 1), there's also `npm run watch` if you have reverse proxy or backend that loads html thatt listen on another port
+6. using minimal set of npm dependencies and no outdated package (use `./update_deps.sh` to update dependencies)
 7. generated html will not remove comments, especially one that used in [Z](https://github.com/kokizzu/gotro/tree/master/Z) template engine, like: `/*! c1 */`, `#{c2}`, `[/* c3 */]`, or `{/* c4 */}`
 
 ## Usage
@@ -75,7 +75,7 @@ npm run build:prod  # build project for production
 
 just copy latest `build.js` to your project directory and then `npm i` or `pnpm i`
 
-or if you want to use Svelte-4 from previously Svelte-3:
+or if you want to use Svelte-4 from previous version that uses Svelte-3:
 
 ```
 # copy latest build.js to your project directory
@@ -85,7 +85,7 @@ cp ../svelte-mpa/svelte.config.js .
 # upgrade package.json to svelte 4
 npx svelte-migrate svelte-4 .
 
-# update all dependencies
+# update all dependencies (downloads svelte 4)
 ./update_deps.sh # or npm i # or pnpm i
 ```
 
