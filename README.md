@@ -75,18 +75,18 @@ npm run build:prod  # build project for production
 
 just copy latest `build.js` to your project directory and then `npm i` or `pnpm i`
 
-or if you want to use Svelte-4:
+or if you want to use Svelte-4 from previously Svelte-3:
 
 ```
 # copy latest build.js to your project directory
 cp ../svelte-mpa/build.js .
+cp ../svelte-mpa/svelte.config.js .
 
 # upgrade package.json to svelte 4
 npx svelte-migrate svelte-4 .
 
 # update all dependencies
 ./update_deps.sh # or npm i # or pnpm i
-
 ```
 
 ## Dev Dependencies
