@@ -1,4 +1,5 @@
-require('svelte/register')
+const compile = require('svelte/compiler').compile
+
 const chokidar = require('chokidar');
 const esbuild = require('esbuild');
 const {readdirSync, statSync, existsSync, writeFileSync, readFileSync} = require('fs');
@@ -295,7 +296,7 @@ function layoutFor(path, content = {}) {
 
     // for each .html files need to be generated
     Object.entries(output).forEach(([path, data]) => {
-      const renderedSvelte = require(path + '.svelte').default.render()
+      const renderedSvelte = compile(path + '.svelte')
 
       const content = layoutFor(path, renderedSvelte)(data);
 
