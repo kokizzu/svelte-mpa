@@ -73,7 +73,7 @@ npm run build:prod  # build project for production
 
 ## How to update/upgrade from previous version?
 
-just copy latest `build.js` to your project directory.
+just copy latest `build.js` to your project directory and then `npm i` or `pnpm i`
 
 ## Dev Dependencies
 
