@@ -17,7 +17,7 @@
     "lodash": "^4.17.21",
     "parse5": "^7.1.2",
     "prettier": "^2.8.8",
-    "svelte": "^4.0.0",
+    "svelte": "^3.59.2",
     "svelte-preprocess": "^5.0.3",
     "typescript": "^5.0.0"
   },

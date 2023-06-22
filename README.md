@@ -19,7 +19,7 @@ Specs/sponsored by: [kokizzu](//github.com/kokizzu)
 
 ## Changelog
 
-- `2023-06-23` feat: upgrade to svelte-4
+[//]: # (- `2023-06-23` feat: upgrade to svelte-4)
 - `2023-01-07` bugfix: nested component css not outputted after editing
 - `2022-12-31` bugfix: component css not outputted after editing
 - `2022-09-12` feat: render on first load for SEO
@@ -75,15 +75,23 @@ npm run build:prod  # build project for production
 
 just copy latest `build.js` to your project directory and then `npm i` or `pnpm i`
 
-or if you are using pre Svelte-4:
-```
-# copy latest build.js to your project directory
-cp ../svelte-mpa/build.js .
-# upgrade package.json to svelte 4
-npx svelte-migrate svelte-4 .
-# update all dependencies
-./update_deps.sh # or npm i # or pnpm i
-```
+[//]: # (or if you are using pre Svelte-4:)
+
+[//]: # (```)
+
+[//]: # (# copy latest build.js to your project directory)
+
+[//]: # (cp ../svelte-mpa/build.js .)
+
+[//]: # (# upgrade package.json to svelte 4)
+
+[//]: # (npx svelte-migrate svelte-4 .)
+
+[//]: # (# update all dependencies)
+
+[//]: # (./update_deps.sh # or npm i # or pnpm i)
+
+[//]: # (```)
 
 ## Dev Dependencies
 
