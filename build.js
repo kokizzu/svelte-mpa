@@ -7,6 +7,7 @@ const {join, basename, resolve, dirname, relative} = require( 'path' );
 const sveltePlugin = require( 'esbuild-svelte' );
 const {sum} = require( 'lodash' );
 const parse5 = require( 'parse5' );
+const notifier = require('node-notifier');
 
 const [watch, serve, minify, debug, logVars] = ['--watch', '--serve', '--minify', '--debug', '--log-vars'].map( s =>
   process.argv.includes( s )
@@ -314,6 +315,11 @@ function layoutFor( path, content = {} ) {
     let timeRef = null;
     
     function changeListener( path, stats, type, watcher ) {
+      notifier.notify({
+        title: 'Change occurs',
+        message: `Change occurs in ${path}`
+      });
+
       if( compiledFiles.has( resolve( path ) ) ) return;
       console.log( type + ':', path.replace( __dirname, '' ) );
       
