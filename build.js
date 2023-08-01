@@ -88,7 +88,9 @@ const svelteJsPathResolver = {
 
 function createBuilder( entryPoints ) {
   console.log( 'pages:', entryPoints );
+  console.log('createBuilder');
   
+  // TODO ::::::
   return esbuild.build( {
     entryPoints: entryPoints.map( s => s + '.ts' ),
     bundle: true,
@@ -98,7 +100,13 @@ function createBuilder( entryPoints ) {
     incremental: !!watch,
     sourcemap: false,
     minify,
-  } );
+  } ).catch(() => {
+    console.log('error');
+    notifier.notify({
+      title: 'Error occurs',
+      message: 'error'
+    });
+  });
 }
 
 function layoutFor( path, content = {} ) {
@@ -268,6 +276,8 @@ function layoutFor( path, content = {} ) {
   let cache = {};
   
   function saveFiles( files = builder, layoutChanged = false ) {
+    console.log('saveFiles');
+
     const output = {};
     let unchanged = 0;
     // path = bla.svelte.js or bla.svelte.css
@@ -302,6 +312,8 @@ function layoutFor( path, content = {} ) {
       path = resolve( path + '.html' );
       compiledFiles.add( path );
       console.log( 'compiled:', relative( resolve( __dirname ), path ) );
+
+      // TODO ::::::
       writeFileSync( path, content );
     } );
   }
