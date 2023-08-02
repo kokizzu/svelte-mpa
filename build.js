@@ -9,6 +9,14 @@ const {sum} = require( 'lodash' );
 const parse5 = require( 'parse5' );
 const notifier = require('node-notifier');
 
+process.on('unhandledRejection', error => {
+  // console.error('Error ', error)
+  notifier.notify({
+    title: 'Error occurs',
+    message: `${error}`
+  });
+})
+
 const [watch, serve, minify, debug, logVars] = ['--watch', '--serve', '--minify', '--debug', '--log-vars'].map( s =>
   process.argv.includes( s )
 );
@@ -88,7 +96,6 @@ const svelteJsPathResolver = {
 
 function createBuilder( entryPoints ) {
   console.log( 'pages:', entryPoints );
-  console.log('createBuilder');
   
   // TODO ::::::
   return esbuild.build( {
@@ -100,13 +107,7 @@ function createBuilder( entryPoints ) {
     incremental: !!watch,
     sourcemap: false,
     minify,
-  } ).catch(() => {
-    console.log('error');
-    notifier.notify({
-      title: 'Error occurs',
-      message: 'error'
-    });
-  });
+  } )
 }
 
 function layoutFor( path, content = {} ) {
@@ -276,8 +277,6 @@ function layoutFor( path, content = {} ) {
   let cache = {};
   
   function saveFiles( files = builder, layoutChanged = false ) {
-    console.log('saveFiles');
-
     const output = {};
     let unchanged = 0;
     // path = bla.svelte.js or bla.svelte.css
@@ -305,7 +304,14 @@ function layoutFor( path, content = {} ) {
     
     // for each .html files need to be generated
     Object.entries( output ).forEach( ( [path, data] ) => {
-      const renderedSvelte = compile( path + '.svelte' )
+      let renderedSvelte;
+      try {
+        const result = compile( path + '.svelte' );
+        renderedSvelte = result
+      } catch (error) {
+        console.error(error);
+        console.log('Ini error kok')
+      }
       
       const content = layoutFor( path, renderedSvelte )( data );
       
