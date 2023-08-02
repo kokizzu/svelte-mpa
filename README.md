@@ -19,6 +19,8 @@ Specs/maintainer/sponsored by: [kokizzu](//github.com/kokizzu)
 
 ## 📰 Changelog
 
+- `2023-08-02` feat: send desktop notification when error
+- `2023-08-02` bugfix: should not exit when compile error
 - `2023-06-23` feat: upgrade to svelte-4
 - `2023-01-07` bugfix: nested component css not outputted after editing
 - `2022-12-31` bugfix: component css not outputted after editing
@@ -97,6 +99,7 @@ npx svelte-migrate svelte-4 .
 - [chokidar](//github.com/paulmillr/chokidar) - minimal and efficient cross-platform file watching library
 - [five-server](//github.com/yandeu/five-server) - development Server with Live Reload Capability
 - [lodash](//lodash.com) - A modern JavaScript utility library delivering modularity, performance & extras
+- [node-notifier](//github.com/mikaelbr/node-notifier) - cross-platform desktop notification
 - [parse5](//github.com/inikulin/parse5) - html parsing/serialization toolset for node.js
 - [svelte-preprocess](//github.com/sveltejs/svelte-preprocess) - a svelte preprocessor with sensible defaults and support for: postcss, scss, less, stylus, coffeescript, typescript, pug and much more.
 
