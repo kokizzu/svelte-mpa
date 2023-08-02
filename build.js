@@ -9,13 +9,12 @@ const {sum} = require( 'lodash' );
 const parse5 = require( 'parse5' );
 const notifier = require('node-notifier');
 
-process.on('unhandledRejection', error => {
-  // console.error('Error ', error)
+process.on('uncaughtException', error => {
   notifier.notify({
     title: 'Error occurs',
     message: `${error}`
   });
-})
+});
 
 const [watch, serve, minify, debug, logVars] = ['--watch', '--serve', '--minify', '--debug', '--log-vars'].map( s =>
   process.argv.includes( s )
@@ -97,7 +96,6 @@ const svelteJsPathResolver = {
 function createBuilder( entryPoints ) {
   console.log( 'pages:', entryPoints );
   
-  // TODO ::::::
   return esbuild.build( {
     entryPoints: entryPoints.map( s => s + '.ts' ),
     bundle: true,
@@ -107,7 +105,7 @@ function createBuilder( entryPoints ) {
     incremental: !!watch,
     sourcemap: false,
     minify,
-  } )
+    } )
 }
 
 function layoutFor( path, content = {} ) {
@@ -304,22 +302,13 @@ function layoutFor( path, content = {} ) {
     
     // for each .html files need to be generated
     Object.entries( output ).forEach( ( [path, data] ) => {
-      let renderedSvelte;
-      try {
-        const result = compile( path + '.svelte' );
-        renderedSvelte = result
-      } catch (error) {
-        console.error(error);
-        console.log('Ini error kok')
-      }
+      const renderedSvelte = compile( path + '.svelte' );
       
       const content = layoutFor( path, renderedSvelte )( data );
       
       path = resolve( path + '.html' );
       compiledFiles.add( path );
       console.log( 'compiled:', relative( resolve( __dirname ), path ) );
-
-      // TODO ::::::
       writeFileSync( path, content );
     } );
   }
@@ -333,10 +322,26 @@ function layoutFor( path, content = {} ) {
     let timeRef = null;
     
     function changeListener( path, stats, type, watcher ) {
-      notifier.notify({
-        title: 'Change occurs',
-        message: `Change occurs in ${path}`
-      });
+      switch (type) {
+      case 'change':
+        notifier.notify({
+          title: 'Change occurs',
+          message: `Change occurs in "${path}"`
+        });
+        break;
+      case 'add':
+        notifier.notify({
+          title: 'File added',
+          message: `Added file "${path}"`
+        });
+        break;
+      case 'unlink':
+        notifier.notify({
+          title: 'File remove',
+          message: `Removed file "${path}"`
+        });
+        break;
+      }
 
       if( compiledFiles.has( resolve( path ) ) ) return;
       console.log( type + ':', path.replace( __dirname, '' ) );
