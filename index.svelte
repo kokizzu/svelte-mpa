@@ -7,7 +7,6 @@
   let b = {/* b */};
   let c = [/* c */];
   let d = '/*! d */';
-
 </script>
 
 {a}, {b}, {c}, {d}

@@ -7,6 +7,14 @@ const {join, basename, resolve, dirname, relative} = require( 'path' );
 const sveltePlugin = require( 'esbuild-svelte' );
 const {sum} = require( 'lodash' );
 const parse5 = require( 'parse5' );
+const notifier = require('node-notifier');
+
+process.on('uncaughtException', error => {
+  notifier.notify({
+    title: 'Error occurs',
+    message: `${error}`
+  });
+});
 
 const [watch, serve, minify, debug, logVars] = ['--watch', '--serve', '--minify', '--debug', '--log-vars'].map( s =>
   process.argv.includes( s )
@@ -97,7 +105,7 @@ function createBuilder( entryPoints ) {
     incremental: !!watch,
     sourcemap: false,
     minify,
-  } );
+    } )
 }
 
 function layoutFor( path, content = {} ) {
@@ -294,7 +302,7 @@ function layoutFor( path, content = {} ) {
     
     // for each .html files need to be generated
     Object.entries( output ).forEach( ( [path, data] ) => {
-      const renderedSvelte = compile( path + '.svelte' )
+      const renderedSvelte = compile( path + '.svelte' );
       
       const content = layoutFor( path, renderedSvelte )( data );
       
@@ -314,6 +322,27 @@ function layoutFor( path, content = {} ) {
     let timeRef = null;
     
     function changeListener( path, stats, type, watcher ) {
+      switch (type) {
+      case 'change':
+        notifier.notify({
+          title: 'Change occurs',
+          message: `Change occurs in "${path}"`
+        });
+        break;
+      case 'add':
+        notifier.notify({
+          title: 'File added',
+          message: `Added file "${path}"`
+        });
+        break;
+      case 'unlink':
+        notifier.notify({
+          title: 'File remove',
+          message: `Removed file "${path}"`
+        });
+        break;
+      }
+
       if( compiledFiles.has( resolve( path ) ) ) return;
       console.log( type + ':', path.replace( __dirname, '' ) );
       
