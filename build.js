@@ -2,8 +2,8 @@ const compile = require( 'svelte/compiler' ).compile
 
 const chokidar = require( 'chokidar' );
 const esbuild = require( 'esbuild' );
-const {readdirSync, statSync, existsSync, writeFileSync, readFileSync} = require( 'fs' );
-const {join, basename, resolve, dirname, relative} = require( 'path' );
+const {readdirSync, statSync, existsSync, writeFileSync, readFileSync, readFile, writeFile} = require( 'fs' );
+const {join, basename, resolve, dirname, relative, extname} = require( 'path' );
 const sveltePlugin = require( 'esbuild-svelte' );
 const {sum} = require( 'lodash' );
 const parse5 = require( 'parse5' );
@@ -266,7 +266,41 @@ function layoutFor( path, content = {} ) {
 
 (async () => {
   let watcherReady = false;
+
+  function searchForHtmlFiles(directoryPath) {
+    const fileNames = readdirSync(directoryPath);
+    fileNames.forEach((fileName) => {
+      if (fileName !== 'node_modules') {
+        const filePath = join(directoryPath, fileName);
+        const stats = statSync(filePath);
   
+        if (stats.isDirectory()) {
+          searchForHtmlFiles(filePath);
+        } else {
+          const ext = extname(fileName);
+          if (ext === '.html') {
+            console.log('HTML File:', filePath);
+            // readFile(filePath, 'utf-8', (err, data) => {
+            //   if (err) {
+            //     console.error('Error reading file: ', err);
+            //     return;
+            //   }
+            //   const updatedData = data.replace(`${__dirname}`, '//');
+            //   writeFile(filePath, updatedData, 'utf-8', (err) => {
+            //     if (err) {
+            //       console.error('Error writing file: ', err);
+            //       return;
+            //     }
+            //     console.log('Success removes text')
+            //   })
+            // })
+          }
+        }
+      }
+    });
+  }
+  searchForHtmlFiles(__dirname);
+
   watch && console.log( 'first build start' );
   let pages = findPages();
   let builder = await createBuilder( pages );
