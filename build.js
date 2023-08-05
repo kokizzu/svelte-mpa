@@ -8,6 +8,7 @@ const sveltePlugin = require( 'esbuild-svelte' );
 const {sum} = require( 'lodash' );
 const parse5 = require( 'parse5' );
 const notifier = require('node-notifier');
+const { dir } = require('console');
 
 process.on('uncaughtException', error => {
   notifier.notify({
@@ -264,43 +265,46 @@ function layoutFor( path, content = {} ) {
   });
 }
 
-(async () => {
-  let watcherReady = false;
-
-  function searchForHtmlFiles(directoryPath) {
-    const fileNames = readdirSync(directoryPath);
-    fileNames.forEach((fileName) => {
-      if (fileName !== 'node_modules') {
-        const filePath = join(directoryPath, fileName);
-        const stats = statSync(filePath);
-  
-        if (stats.isDirectory()) {
-          searchForHtmlFiles(filePath);
-        } else {
-          const ext = extname(fileName);
-          if (ext === '.html') {
-            console.log('HTML File:', filePath);
-            // readFile(filePath, 'utf-8', (err, data) => {
-            //   if (err) {
-            //     console.error('Error reading file: ', err);
-            //     return;
-            //   }
-            //   const updatedData = data.replace(`${__dirname}`, '//');
-            //   writeFile(filePath, updatedData, 'utf-8', (err) => {
-            //     if (err) {
-            //       console.error('Error writing file: ', err);
-            //       return;
-            //     }
-            //     console.log('Success removes text')
-            //   })
-            // })
-          }
+function replaceFullPathComment(directoryPath) {
+  const fileNames = readdirSync(directoryPath);
+  fileNames.forEach((fileName) => {
+    if (fileName !== 'node_modules') {
+      const filePath = join(directoryPath, fileName);
+      const stats = statSync(filePath);
+      if (stats.isDirectory()) {
+        replaceFullPathComment(filePath);
+      } else {
+        const ext = extname(fileName);
+        if (ext === '.html') {
+          readFile(filePath, 'utf-8', (err, data) => {
+            if (err) {
+              console.error('Error reading file: ', err);
+              return;
+            }
+            const searchString = __dirname;
+            const escapedSearchString = searchString.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(escapedSearchString, 'g');
+            const matches = data.match(regex);
+            if (matches) {
+              const updatedData = data.replace(regex, '//');
+              writeFile(filePath, updatedData, 'utf-8', (err) => {
+                if (err) {
+                console.error('Error writing file: ', err);
+                return;
+              }
+              console.log('FIle Updated')
+            })
+          } 
+          })
         }
       }
-    });
-  }
-  searchForHtmlFiles(__dirname);
+    }
+  });
+}
 
+(async () => {
+  let watcherReady = false;
+  
   watch && console.log( 'first build start' );
   let pages = findPages();
   let builder = await createBuilder( pages );
@@ -350,6 +354,11 @@ function layoutFor( path, content = {} ) {
   saveFiles();
   watch && console.log( 'first build end' );
   
+  /**
+   * Replace fullpath comment with '//'
+   */
+  replaceFullPathComment(__dirname);
+
   if( watch ) {
     const pagesPaths = new Set( pages.map( p => resolve( p ) ) );
     
