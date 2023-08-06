@@ -19,6 +19,7 @@ Specs/maintainer/sponsored by: [kokizzu](//github.com/kokizzu)
 
 ## 📰 Changelog
 
+- `2023-08-07` feat: remove full path fakecss comment generation
 - `2023-08-02` feat: send desktop notification when error
 - `2023-08-02` bugfix: should not exit when compile error
 - `2023-06-23` feat: upgrade to svelte-4
