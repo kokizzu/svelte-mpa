@@ -33,7 +33,7 @@
       {/each}
     </tbody>
   </table>
-	<Button></Button>
+	<Button>test</Button>
 </div>
 
 <style>

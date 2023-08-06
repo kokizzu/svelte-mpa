@@ -260,7 +260,11 @@ function layoutFor( path, content = {} ) {
     let html = content.html || '';
     const innerCss = (content.css || {}).code || '';
     
-    return parse5.serialize( tree ).replace( cssKEY, css + innerCss ).replace( jsKEY, js ).replace( appKEY, html );
+    return parse5.serialize( tree ).
+      replace( cssKEY, css + innerCss ).
+      replace( jsKEY, js ).
+      replace( appKEY, html ).
+      replaceAll("fakecss:"+__dirname,'fakecss:.');
   });
 }
 
