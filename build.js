@@ -2,8 +2,8 @@ const compile = require( 'svelte/compiler' ).compile
 
 const chokidar = require( 'chokidar' );
 const esbuild = require( 'esbuild' );
-const {readdirSync, statSync, existsSync, writeFileSync, readFileSync, readFile, writeFile} = require( 'fs' );
-const {join, basename, resolve, dirname, relative, extname} = require( 'path' );
+const {readdirSync, statSync, existsSync, writeFileSync, readFileSync} = require( 'fs' );
+const {join, basename, resolve, dirname, relative} = require( 'path' );
 const sveltePlugin = require( 'esbuild-svelte' );
 const {sum} = require( 'lodash' );
 const parse5 = require( 'parse5' );
@@ -265,41 +265,17 @@ function layoutFor( path, content = {} ) {
   });
 }
 
-function replaceFullPathComment(directoryPath) {
-  const fileNames = readdirSync(directoryPath);
-  fileNames.forEach((fileName) => {
-    if (fileName !== 'node_modules') {
-      const filePath = join(directoryPath, fileName);
-      const stats = statSync(filePath);
-      if (stats.isDirectory()) {
-        replaceFullPathComment(filePath);
-      } else {
-        const ext = extname(fileName);
-        if (ext === '.html') {
-          readFile(filePath, 'utf-8', (err, data) => {
-            if (err) {
-              console.error('Error reading file: ', err);
-              return;
-            }
-            const searchString = __dirname;
-            const escapedSearchString = searchString.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            const regex = new RegExp(escapedSearchString, 'g');
-            const matches = data.match(regex);
-            if (matches) {
-              const updatedData = data.replace(regex, '//');
-              writeFile(filePath, updatedData, 'utf-8', (err) => {
-                if (err) {
-                console.error('Error writing file: ', err);
-                return;
-              }
-              console.log('FIle Updated')
-            })
-          } 
-          })
-        }
-      }
-    }
-  });
+function replaceComment(content) {
+  const searchString = __dirname;
+  const escapedSearchString = searchString.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(escapedSearchString, 'g');
+  const matches = content.match(regex);
+  if (matches) {
+    const updatedContent = content.replace(regex, '//');
+    return updatedContent;
+  } else {
+    return content;
+  }     
 }
 
 (async () => {
@@ -342,22 +318,18 @@ function replaceFullPathComment(directoryPath) {
     Object.entries( output ).forEach( ( [path, data] ) => {
       const renderedSvelte = compile( path + '.svelte' );
       
-      const content = layoutFor( path, renderedSvelte )( data );
+      let content = layoutFor( path, renderedSvelte )( data );
       
       path = resolve( path + '.html' );
       compiledFiles.add( path );
       console.log( 'compiled:', relative( resolve( __dirname ), path ) );
+      content = replaceComment( content );
       writeFileSync( path, content );
     } );
   }
   
   saveFiles();
   watch && console.log( 'first build end' );
-  
-  /**
-   * Replace fullpath comment with '//'
-   */
-  replaceFullPathComment(__dirname);
 
   if( watch ) {
     const pagesPaths = new Set( pages.map( p => resolve( p ) ) );
