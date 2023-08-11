@@ -1,5 +1,7 @@
 # Multipage Svelte, Svelte MPA
 
+This is starter template to create multiple-page application using plain Svelte, so just like SvelteKit static-adapter, but without unecessary complexity it introduces.
+
 The purpose of this project is to make [Svelte](//svelte.dev/) that defaults is component-based SPA into an statically-generated MPA (multi-page SPA, page+component-based). 
 So for deployment you only need to [rsync](//rsync.samba.org/) the `.html`, imported/external `.css`/`.js` and any other assets (images, fonts, non-`.svelte` files). 
 It was originally built for [Z](https://github.com/kokizzu/gotro/tree/master/Z) template engine.
@@ -59,6 +61,8 @@ It would automatically generate 3 files: `foo/bar.html`, `subpage/page3.html`, a
 7. generated html will not remove comments, especially one that used in [Z](https://github.com/kokizzu/gotro/tree/master/Z) template engine, like: `/*! c1 */`, `#{c2}`, `[/* c3 */]`, or `{/* c4 */}`
 
 ## 🍴 Usage
+
+Svelte-MPA is just consist of `build.js`, `package.json`, `svelte.config.js`, so you just need to copy those files to your project, then create `_layout.html` and one `.svelte` file to start. Or alternatively just clone whole directory manually or using `degit` and remove stuff that you don't need.
 
 ```shell
 npm install -g degit                 # scaffolding helper
