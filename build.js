@@ -1,13 +1,18 @@
-const compile = require( 'svelte/compiler' ).compile
+import  { compile } from 'svelte/compiler';
+import chokidar from 'chokidar';
+import esbuild from 'esbuild';
+import { readdirSync, statSync, existsSync, writeFileSync, readFileSync } from 'fs';
+import { join, basename, resolve, dirname, relative } from 'path';
+import { fileURLToPath } from 'url';
+import sveltePlugin from 'esbuild-svelte';
+import { sum } from 'lodash-es';
+import { parse, serialize } from 'parse5';
+import notifier from 'node-notifier';
+import svelteConfig from './svelte.config.js';
+import FiveServer from 'five-server';
 
-const chokidar = require( 'chokidar' );
-const esbuild = require( 'esbuild' );
-const {readdirSync, statSync, existsSync, writeFileSync, readFileSync} = require( 'fs' );
-const {join, basename, resolve, dirname, relative} = require( 'path' );
-const sveltePlugin = require( 'esbuild-svelte' );
-const {sum} = require( 'lodash' );
-const parse5 = require( 'parse5' );
-const notifier = require('node-notifier');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 process.on('uncaughtException', error => {
   notifier.notify({
@@ -57,12 +62,12 @@ function findPages( dir = '.', sink = [] ) {
 const _zId_prefix = `z_placeholder_${Math.floor( Math.random() * 1000000000 ).toString( 16 )}_`;
 const _zReplacer = s => debug_console_log( ['z-replace:', s, `"${_zId_prefix}${Buffer.from( s ).toString( 'base64' )}"`], 2 );
 
-const zPlaceholderReplacer = content =>
-  
+const zPlaceholderReplacer = content => {
   content?.replace( /\#\{\s*\w+\s*\}/gs, _zReplacer ) // #{ key }
     .replace( /\/\*\!\s*\w+\s*\*\//gs, _zReplacer ) // map /*! mapKey */
     .replace( /\[\s*\/\*\s*\w+\s*\*\/\s*\]/gs, _zReplacer ) // map [/* mapKey */]
     .replace( /\{\s*\/\*\s*\w+\s*\*\/\s*\}/gs, _zReplacer ); // map {/* mapKey */}
+}
 
 global.zPlaceholderReplacer = zPlaceholderReplacer;
 
@@ -101,7 +106,7 @@ function createBuilder( entryPoints ) {
     bundle: true,
     outdir: '.',
     write: false,
-    plugins: [svelteJsPathResolver, sveltePlugin( require( './svelte.config' ) )],
+    plugins: [svelteJsPathResolver, sveltePlugin( svelteConfig ) ],
     incremental: !!watch,
     sourcemap: false,
     minify,
@@ -129,7 +134,7 @@ function layoutFor( path, content = {} ) {
   const m = statSync( path ).mtimeMs;
   if( cache && m===cache.m ) return cache;
   
-  const tree = parse5.parse(
+  const tree = parse(
     path
       ? readFileSync( path, 'utf-8' )
       : `<!DOCTYPE html>
@@ -260,7 +265,7 @@ function layoutFor( path, content = {} ) {
     let html = content.html || '';
     const innerCss = (content.css || {}).code || '';
     
-    return parse5.serialize( tree ).
+    return serialize( tree ).
       replace( cssKEY, css + innerCss ).
       replace( jsKEY, js ).
       replace( appKEY, html ).
@@ -377,11 +382,11 @@ function layoutFor( path, content = {} ) {
         watcherReady = true;
       } )
       .on( 'error', err => console.log( 'ERROR:', err ) );
-  }
-  
-  const FiveServer = require( 'five-server' ).default;
+  };
+
+
   serve &&
-  (await new FiveServer().start( {
+  (await  new FiveServer().start( {
     open: true,
     workspace: __dirname,
     ignore: [...ignorePath, /\.(js|ts|svelte)$/, /\_layout\.html$/],

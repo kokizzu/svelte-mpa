@@ -1,6 +1,7 @@
 {
   "name": "svelte-mpa-app",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "start": "npm run dev",
     "watch": "npm run build -- --watch",
@@ -11,7 +12,7 @@
   },
   "devDependencies": {
     "chokidar": "^3.6.0",
-    "esbuild": "^0.25.1",
+    "esbuild": "^0.16.17",
     "esbuild-svelte": "^0.7.4",
     "five-server": "^0.4.1",
     "lodash": "^4.17.21",
@@ -27,5 +28,8 @@
     "trailingComma": "es5",
     "printWidth": 120,
     "arrowParens": "avoid"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21"
   }
 }
