@@ -1,8 +1,10 @@
-const sveltePreprocess = require('svelte-preprocess');
+import sveltePreprocess from 'svelte-preprocess';
 
-const contentReplacer = args => global.zPlaceholderReplacer && { code: global.zPlaceholderReplacer(args.content) };
+const contentReplacer = ( args ) => {
+  global.zPlaceholderReplacer && { code: global.zPlaceholderReplacer(args.content) };
+}
 
-module.exports = {
+export default {
   // Consult https://github.com/sveltejs/svelte-preprocess
   // for more information about preprocessors
   preprocess: [
