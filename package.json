@@ -11,16 +11,17 @@
     "serve": "node build.js --serve"
   },
   "devDependencies": {
-    "chokidar": "^3.6.0",
-    "esbuild": "^0.16.17",
-    "esbuild-svelte": "^0.7.3",
-    "lodash": "^4.17.21",
-    "node-notifier": "^10.0.1",
-    "parse5": "^7.1.2",
-    "prettier": "^2.8.8",
-    "svelte": "^4.0.0",
-    "svelte-preprocess": "^5.0.4",
-    "typescript": "^5.1.3"
+    "chokidar": "^3.5.3",
+		"esbuild": "0.16.17",
+		"esbuild-svelte": "^0.8.0",
+		"five-server": "^0.1.9",
+		"lodash": "^4.17.21",
+		"node-notifier": "^10.0.1",
+		"parse5": "^7.1.2",
+		"prettier": "^2.8.8",
+		"svelte": "^4.2.2",
+		"svelte-preprocess": "^5.0.4",
+		"typescript": "^5.2.2"
   },
   "prettier": {
     "singleQuote": true,
@@ -29,7 +30,12 @@
     "arrowParens": "avoid"
   },
   "dependencies": {
-    "five-server": "^0.3.2",
-    "lodash-es": "^4.17.21"
-  }
+    "five-server": "^0.3.3",
+    "lodash-es": "^4.17.21",
+    "file-selector": "^0.2.4"
+  },
+  "peerDependencies": {
+		"esbuild": ">=0.8 <0.18",
+		"esbuild-node-externals": "^1.0.0"
+	}
 }

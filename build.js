@@ -1,18 +1,14 @@
-import  { compile } from 'svelte/compiler';
+import { compile } from 'svelte/compiler';
 import chokidar from 'chokidar';
 import esbuild from 'esbuild';
-import { readdirSync, statSync, existsSync, writeFileSync, readFileSync } from 'fs';
-import { join, basename, resolve, dirname, relative } from 'path';
-import { fileURLToPath } from 'url';
+import {readdirSync, statSync, existsSync, writeFileSync, readFileSync} from 'fs';
+import {join, basename, resolve, dirname, relative} from 'path';
 import sveltePlugin from 'esbuild-svelte';
-import { sum } from 'lodash-es';
-import { parse, serialize } from 'parse5';
+import {sum} from 'lodash-es';
+import { parse } from 'parse5';
 import notifier from 'node-notifier';
-import svelteConfig from './svelte.config.js';
 import FiveServer from 'five-server';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import svelteConfig from './svelte.config.js';
 
 process.on('uncaughtException', error => {
   notifier.notify({
@@ -62,12 +58,12 @@ function findPages( dir = '.', sink = [] ) {
 const _zId_prefix = `z_placeholder_${Math.floor( Math.random() * 1000000000 ).toString( 16 )}_`;
 const _zReplacer = s => debug_console_log( ['z-replace:', s, `"${_zId_prefix}${Buffer.from( s ).toString( 'base64' )}"`], 2 );
 
-const zPlaceholderReplacer = content => {
+const zPlaceholderReplacer = content =>
+  
   content?.replace( /\#\{\s*\w+\s*\}/gs, _zReplacer ) // #{ key }
     .replace( /\/\*\!\s*\w+\s*\*\//gs, _zReplacer ) // map /*! mapKey */
     .replace( /\[\s*\/\*\s*\w+\s*\*\/\s*\]/gs, _zReplacer ) // map [/* mapKey */]
     .replace( /\{\s*\/\*\s*\w+\s*\*\/\s*\}/gs, _zReplacer ); // map {/* mapKey */}
-}
 
 global.zPlaceholderReplacer = zPlaceholderReplacer;
 
@@ -106,7 +102,7 @@ function createBuilder( entryPoints ) {
     bundle: true,
     outdir: '.',
     write: false,
-    plugins: [svelteJsPathResolver, sveltePlugin( svelteConfig ) ],
+    plugins: [svelteJsPathResolver, sveltePlugin( svelteConfig )],
     incremental: !!watch,
     sourcemap: false,
     minify,
@@ -265,7 +261,7 @@ function layoutFor( path, content = {} ) {
     let html = content.html || '';
     const innerCss = (content.css || {}).code || '';
     
-    return serialize( tree ).
+    return parse.serialize( tree ).
       replace( cssKEY, css + innerCss ).
       replace( jsKEY, js ).
       replace( appKEY, html ).
@@ -332,12 +328,12 @@ function layoutFor( path, content = {} ) {
     
     function changeListener( path, stats, type, watcher ) {
       switch (type) {
-      case 'change':
-        notifier.notify({
-          title: 'Change occurs',
-          message: `Change occurs in "${path}"`
-        });
-        break;
+      // case 'change':
+      //   notifier.notify({
+      //     title: 'Change occurs',
+      //     message: `Change occurs in "${path}"`
+      //   });
+      //   break;
       case 'add':
         notifier.notify({
           title: 'File added',
@@ -382,11 +378,10 @@ function layoutFor( path, content = {} ) {
         watcherReady = true;
       } )
       .on( 'error', err => console.log( 'ERROR:', err ) );
-  };
-
-
+  }
+  
   serve &&
-  (await  new FiveServer().start( {
+  (await new FiveServer().start( {
     open: true,
     workspace: __dirname,
     ignore: [...ignorePath, /\.(js|ts|svelte)$/, /\_layout\.html$/],
