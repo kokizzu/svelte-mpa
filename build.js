@@ -9,17 +9,28 @@ import { sum } from 'lodash-es';
 import { parse, serialize } from 'parse5';
 import notifier from 'node-notifier';
 import svelteConfig from './svelte.config.js';
-import FiveServer from 'five-server';
+import FiveServerModule from 'five-server';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 process.on('uncaughtException', error => {
+  console.error( error );
   notifier.notify({
     title: 'Error occurs',
     message: `${error}`
   });
 });
+
+process.on( 'unhandledRejection', error => {
+  console.error( error );
+  notifier.notify( {
+    title: 'Unhandled rejection',
+    message: `${error}`
+  } );
+} );
+
+const FiveServer = FiveServerModule?.default || FiveServerModule;
 
 const [watch, serve, minify, debug, logVars] = ['--watch', '--serve', '--minify', '--debug', '--log-vars'].map( s =>
   process.argv.includes( s )
@@ -98,19 +109,31 @@ const svelteJsPathResolver = {
   },
 };
 
-function createBuilder( entryPoints ) {
+async function createBuilder( entryPoints ) {
   console.log( 'pages:', entryPoints );
-  
-  return esbuild.build( {
+
+  const buildOptions = {
     entryPoints: entryPoints.map( s => s + '.ts' ),
     bundle: true,
     outdir: '.',
     write: false,
     plugins: [svelteJsPathResolver, sveltePlugin( svelteConfig ) ],
-    incremental: !!watch,
     sourcemap: false,
     minify,
-    } )
+  };
+
+  if( watch ) {
+    const context = await esbuild.context( buildOptions );
+    const buildResult = await context.rebuild();
+
+    return {
+      outputFiles: buildResult.outputFiles,
+      rebuild: () => context.rebuild(),
+      dispose: () => context.dispose(),
+    };
+  }
+
+  return esbuild.build( buildOptions );
 }
 
 function layoutFor( path, content = {} ) {
@@ -366,9 +389,14 @@ function layoutFor( path, content = {} ) {
       
       if( timeRef ) clearTimeout( timeRef );
       timeRef = setTimeout( async () => {
-        pagesChanged
-          ? saveFiles( (builder = await createBuilder( Array.from( pagesPaths, p => relative( __dirname, p ) ) )), layoutChanged )
-          : saveFiles( await builder.rebuild(), layoutChanged );
+        if( pagesChanged ) {
+          if( builder.dispose ) await builder.dispose();
+          builder = await createBuilder( Array.from( pagesPaths, p => relative( __dirname, p ) ) );
+          saveFiles( builder, layoutChanged );
+          return;
+        }
+
+        saveFiles( await builder.rebuild(), layoutChanged );
       }, 200 );
     }
     
@@ -385,11 +413,16 @@ function layoutFor( path, content = {} ) {
   };
 
 
-  serve &&
-  (await  new FiveServer().start( {
-    open: true,
-    workspace: __dirname,
-    ignore: [...ignorePath, /\.(js|ts|svelte)$/, /\_layout\.html$/],
-    wait: 500,
-  } ));
+  if( serve ) {
+    if( typeof FiveServer!=='function' ) {
+      throw new TypeError( `five-server export is not a constructor (typeof=${typeof FiveServer})` );
+    }
+
+    await new FiveServer().start( {
+      open: true,
+      workspace: __dirname,
+      ignore: [...ignorePath, /\.(js|ts|svelte)$/, /\_layout\.html$/],
+      wait: 500,
+    } );
+  }
 })();
