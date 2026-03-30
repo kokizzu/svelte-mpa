@@ -1,5 +1,5 @@
 <script>
-	export let cells = [];
+	let { cells = [] } = $props();
 	// since _components starts with underscore, should not generate .html automatically
 </script>
 

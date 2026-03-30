@@ -21,6 +21,7 @@ Specs/maintainer/sponsored by: [kokizzu](//github.com/kokizzu)
 
 ## 📰 Changelog
 
+- `2026-03-30` feat: update to latest esbuild and svelte-5
 - `2023-08-07` feat: remove full path fakecss comment generation
 - `2023-08-02` feat: send desktop notification when error
 - `2023-08-02` bugfix: should not exit when compile error

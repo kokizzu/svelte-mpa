@@ -8,3 +8,9 @@ index.html
 page1/subpage.html
 page1/subpage3/index.html
 page2/index.html
+*.svelte4.html
+.ssr_temp
+test_import.js
+test_replacer.js
+test_ssr_init.js
+temp_ssr.js

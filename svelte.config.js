@@ -1,7 +1,7 @@
 import sveltePreprocess from 'svelte-preprocess';
 
 const contentReplacer = ( args ) => {
-  global.zPlaceholderReplacer && { code: global.zPlaceholderReplacer(args.content) };
+  return global.zPlaceholderReplacer && { code: global.zPlaceholderReplacer(args.content, global.zIsSSR) };
 }
 
 export default {

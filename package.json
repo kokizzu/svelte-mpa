@@ -13,13 +13,13 @@
   "devDependencies": {
     "chokidar": "^3.6.0",
     "esbuild": "^0.27.4",
-    "esbuild-svelte": "^0.7.4",
+    "esbuild-svelte": "^0.9.4",
     "five-server": "^0.4.1",
     "lodash": "^4.17.21",
     "node-notifier": "^10.0.1",
     "parse5": "^7.2.1",
     "prettier": "^2.8.8",
-    "svelte": "^4.2.19",
+    "svelte": "^5.55.1",
     "svelte-preprocess": "^5.1.4",
     "typescript": "^5.8.2"
   },

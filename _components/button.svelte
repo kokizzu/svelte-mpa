@@ -1,6 +1,9 @@
 <script>
-	export let title = ''
+	let { title = $bindable('') } = $props()
 	// since _components starts with underscore, should not generate .html automatically
+	function appendTitle() {
+		title += 'x'
+	}
 </script>
 
-<button>{title}</button>
+<button onclick={appendTitle}>{title}</button>
